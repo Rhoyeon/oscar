@@ -1,0 +1,48 @@
+{
+  "embedding": {
+    "model": "text-embedding-3-small",
+    "dimensions": 1536,
+    "node_count": 70,
+    "edge_count": 68,
+    "embedding_templates": {
+      "node": "{class}: {label}. {properties}",
+      "edge": "{source_label} {relation} {target_label}",
+      "subgraph": "2-hop neighborhood summary"
+    }
+  },
+  "vector_store": {
+    "type": "chroma",
+    "collections": ["nodes", "edges", "subgraphs"],
+    "persist_directory": "./_workspace/chroma_db"
+  },
+  "retrieval": {
+    "strategy": "hybrid",
+    "top_k": 10,
+    "bm25_candidates": 50,
+    "context_expansion": true,
+    "context_expansion_hops": 1,
+    "max_context_tokens": 4000,
+    "reranking": true
+  },
+  "query_interface": {
+    "natural_language": true,
+    "sparql": true,
+    "python_api": true
+  },
+  "fallback": {
+    "embedding_api_failure": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "vector_db_failure": "chroma_local"
+  },
+  "ontology_context": {
+    "schema_path": "./_workspace/02_ontology_schema.json",
+    "graph_path": "./_workspace/03_knowledge_graph.json",
+    "use_class_hierarchy": true,
+    "use_property_domain_range": true
+  },
+  "adapters": {
+    "embedding_backends": ["openai", "sentence-transformers", "stub-hash"],
+    "vector_backends": ["chroma", "qdrant", "faiss", "in-memory"],
+    "default_embedding_backend": "sentence-transformers",
+    "default_vector_backend": "chroma"
+  }
+}
