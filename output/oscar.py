@@ -1,15 +1,9 @@
-"""Convenience module so users can write ``from oscar import query, ...``.
+"""Top-level ``oscar`` package shim.
 
-Mirrors the public API exported by ``oscar_api.py``.
+Enables ``from oscar import query, get_node, get_neighbors, get_subgraph``
+when ``output/`` is on ``sys.path`` (or when this file is copied alongside
+the caller).
 """
+from oscar_api import query, get_node, get_neighbors, get_subgraph  # noqa: F401
 
-from oscar_api import (  # noqa: F401
-    get_neighbors,
-    get_node,
-    get_subgraph,
-    list_classes,
-    query,
-    rag,
-)
-
-__all__ = ["query", "get_node", "get_neighbors", "get_subgraph", "list_classes", "rag"]
+__all__ = ["query", "get_node", "get_neighbors", "get_subgraph"]

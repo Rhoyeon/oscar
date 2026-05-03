@@ -1,76 +1,68 @@
-"""Oscar Knowledge Base — public Python API.
+"""Oscar Harness Knowledge Base — Python API wrapper.
 
-Thin, easy-to-use facade over the full RAG pipeline implemented in
-``_workspace/scripts/setup_rag.py``. Re-exports four primitives:
+Convenience facade exposing four functions:
 
     from oscar import query, get_node, get_neighbors, get_subgraph
 
-The first call lazily builds the index (embeddings + Chroma + BM25). All
-subsequent calls reuse a process-wide singleton.
-
-Example:
-    >>> from oscar import query, get_node, get_neighbors
-    >>> hits = query("황민호가 만든 하네스는?", top_k=3)
-    >>> get_node("revfactory/harness")["properties"]["version"]
-    'v1.0.1'
-    >>> [n["label"] for _e, n, _d in get_neighbors("BloomLabs Content Harness")]
+Internally delegates retrieval to ``_workspace/scripts/setup_rag.py``
+(hybrid vector + BM25 over the Oscar knowledge graph).
 """
-
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
-# Wire up the underlying RAG implementation in _workspace/scripts/setup_rag.py
+# Locate the Oscar workspace and make setup_rag.py importable
 # ---------------------------------------------------------------------------
 
-_HERE = Path(__file__).resolve().parent
-_REPO_ROOT = _HERE.parent
-_RAG_SCRIPTS = _REPO_ROOT / "_workspace" / "scripts"
-if str(_RAG_SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(_RAG_SCRIPTS))
+_ROOT = Path(__file__).resolve().parents[1]
+_WORKSPACE = _ROOT / "_workspace"
+_SCRIPTS = _WORKSPACE / "scripts"
+_GRAPH_PATH = _WORKSPACE / "03_knowledge_graph.json"
 
-import setup_rag  # noqa: E402  (sys.path adjusted above)
-
-
-__all__ = [
-    "query",
-    "get_node",
-    "get_neighbors",
-    "get_subgraph",
-    "list_classes",
-    "rag",
-]
-
-
-def rag() -> "setup_rag.OscarRAG":
-    """Return the lazily-built singleton ``OscarRAG`` instance."""
-    return setup_rag.get_rag()
+if str(_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS))
 
 
 # ---------------------------------------------------------------------------
-# Internal lookup helpers
+# Lazy graph cache — used by get_node/get_neighbors/get_subgraph even when
+# the heavy RAG (embeddings + vector store) hasn't been built yet.
 # ---------------------------------------------------------------------------
 
+_GRAPH_CACHE: Optional[Dict[str, Any]] = None
 
-def _resolve_node(identifier: str) -> Optional[dict]:
-    """Resolve a node by label, entity_id (E###), node id (node_###), or URI."""
-    g = rag().graph
-    if identifier in g.node_by_id:
-        return g.node_by_id[identifier]
-    needle = identifier.strip().lower()
-    for n in g.nodes:
-        if n.get("entity_id", "").lower() == needle:
-            return n
-        if n.get("uri", "").lower() == needle:
-            return n
-        if n.get("label", "").lower() == needle:
-            return n
-    # Fallback: case-insensitive substring match on label
-    for n in g.nodes:
-        if needle in n.get("label", "").lower():
+
+def _graph() -> Dict[str, Any]:
+    global _GRAPH_CACHE
+    if _GRAPH_CACHE is None:
+        with open(_GRAPH_PATH, "r", encoding="utf-8") as f:
+            _GRAPH_CACHE = json.load(f)
+    return _GRAPH_CACHE
+
+
+def _index_by(field: str) -> Dict[str, Dict[str, Any]]:
+    return {n[field]: n for n in _graph()["nodes"] if field in n}
+
+
+def _resolve_node(ref: str) -> Optional[Dict[str, Any]]:
+    """Accept node_id (node_001), entity_id (E001), URI, or label."""
+    if not ref:
+        return None
+    by_id = _index_by("id")
+    if ref in by_id:
+        return by_id[ref]
+    by_eid = _index_by("entity_id")
+    if ref in by_eid:
+        return by_eid[ref]
+    by_uri = _index_by("uri")
+    if ref in by_uri:
+        return by_uri[ref]
+    target = ref.strip().lower()
+    for n in _graph()["nodes"]:
+        if n.get("label", "").lower() == target:
             return n
     return None
 
@@ -81,74 +73,104 @@ def _resolve_node(identifier: str) -> Optional[dict]:
 
 
 def query(text: str, top_k: int = 10) -> Dict[str, Any]:
-    """Natural-language hybrid search over nodes / edges / subgraphs.
+    """Natural-language query over the Oscar KB.
 
-    Returns a dict shaped as::
-
-        {"query": str, "top_k": int,
-         "results": {"nodes": [...], "edges": [...], "subgraphs": [...]}}
+    Hybrid (vector + BM25) retrieval with ontology-aware context expansion.
+    Returns ``{"query", "top_k", "results": {"nodes": [...], "edges": [...],
+    "subgraphs": [...]}}``.
     """
-    return setup_rag.oscar_query(text, top_k=top_k)
+    from setup_rag import oscar_query  # lazy: builds the index on first call
+    return oscar_query(text, top_k=top_k)
 
 
-def get_node(identifier: str) -> Optional[dict]:
-    """Look up a single node by label / entity_id / node_id / URI."""
-    return _resolve_node(identifier)
+def get_node(ref: str) -> Optional[Dict[str, Any]]:
+    """Look up a node by ``entity_id`` (E001), ``node_id`` (node_001),
+    URI, or label. Returns the raw node dict or ``None``."""
+    return _resolve_node(ref)
 
 
-def get_neighbors(
-    identifier: str, hops: int = 1
-) -> List[Tuple[dict, dict, str]]:
-    """Return the n-hop neighborhood as ``[(edge, neighbor_node, direction), ...]``.
+def get_neighbors(ref: str, hops: int = 1,
+                  direction: str = "both") -> List[Dict[str, Any]]:
+    """Return neighboring nodes within ``hops`` (BFS).
 
-    ``direction`` is ``"out"`` (identifier -> neighbor) or ``"in"`` (neighbor -> identifier).
+    Each item: ``{"edge": {...}, "node": {...}, "direction": "out"|"in"}``.
+    ``direction`` may be ``"out"``, ``"in"``, or ``"both"`` (default).
     """
-    node = _resolve_node(identifier)
+    node = _resolve_node(ref)
     if node is None:
         return []
-    return rag().graph.neighbors(node["id"], hops=hops)
+    g = _graph()
+    by_id = {n["id"]: n for n in g["nodes"]}
+    out_edges: Dict[str, List[dict]] = {}
+    in_edges: Dict[str, List[dict]] = {}
+    for e in g["edges"]:
+        out_edges.setdefault(e["source"], []).append(e)
+        in_edges.setdefault(e["target"], []).append(e)
+
+    seen = {node["id"]}
+    frontier = [node["id"]]
+    out: List[Dict[str, Any]] = []
+    for _ in range(max(1, hops)):
+        nxt: List[str] = []
+        for nid in frontier:
+            if direction in ("out", "both"):
+                for e in out_edges.get(nid, []):
+                    if e["target"] not in seen:
+                        seen.add(e["target"])
+                        nxt.append(e["target"])
+                        out.append({"edge": e, "node": by_id[e["target"]],
+                                    "direction": "out"})
+            if direction in ("in", "both"):
+                for e in in_edges.get(nid, []):
+                    if e["source"] not in seen:
+                        seen.add(e["source"])
+                        nxt.append(e["source"])
+                        out.append({"edge": e, "node": by_id[e["source"]],
+                                    "direction": "in"})
+        frontier = nxt
+    return out
 
 
-def get_subgraph(identifier: str, hops: int = 2) -> Dict[str, Any]:
-    """Return a serializable subgraph around ``identifier`` (center + n-hop frontier).
+def get_subgraph(ref: str, hops: int = 2) -> Dict[str, Any]:
+    """Return an induced subgraph centered on ``ref`` within ``hops``.
 
-    Output schema::
-
-        {"center": <node>, "hops": int,
-         "nodes": [<node>, ...], "edges": [<edge>, ...]}
+    Result shape: ``{"center": {...}, "nodes": [...], "edges": [...]}``.
     """
-    node = _resolve_node(identifier)
-    if node is None:
-        return {"center": None, "hops": hops, "nodes": [], "edges": []}
-    frontier = rag().graph.neighbors(node["id"], hops=hops)
-    nodes = {node["id"]: node}
-    edges: Dict[str, dict] = {}
-    for edge, nbr, _direction in frontier:
-        nodes[nbr["id"]] = nbr
-        edges[edge["id"]] = edge
-    return {
-        "center": node,
-        "hops": hops,
-        "nodes": list(nodes.values()),
-        "edges": list(edges.values()),
-    }
+    center = _resolve_node(ref)
+    if center is None:
+        return {"center": None, "nodes": [], "edges": []}
+    nbrs = get_neighbors(center["id"], hops=hops, direction="both")
+    node_ids = {center["id"]} | {n["node"]["id"] for n in nbrs}
+    nodes = [n for n in _graph()["nodes"] if n["id"] in node_ids]
+    edges = [e for e in _graph()["edges"]
+             if e["source"] in node_ids and e["target"] in node_ids]
+    return {"center": center, "nodes": nodes, "edges": edges}
 
 
-def list_classes() -> List[dict]:
-    """Return all ontology classes (id, name, parent, description)."""
-    return rag().ontology.schema["classes"]
+__all__ = ["query", "get_node", "get_neighbors", "get_subgraph"]
 
 
 # ---------------------------------------------------------------------------
-# CLI: ``python oscar_api.py "내 질문"``
+# CLI demo
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import json
+    import argparse
+    parser = argparse.ArgumentParser(description="Oscar harness KB CLI")
+    parser.add_argument("command", choices=["query", "node", "neighbors", "subgraph"])
+    parser.add_argument("arg", help="query text or node reference")
+    parser.add_argument("--top-k", type=int, default=5)
+    parser.add_argument("--hops", type=int, default=1)
+    args = parser.parse_args()
 
-    if len(sys.argv) < 2:
-        print("usage: python oscar_api.py <natural-language-question> [top_k]")
-        sys.exit(1)
-    q_text = sys.argv[1]
-    k = int(sys.argv[2]) if len(sys.argv) > 2 else 5
-    print(json.dumps(query(q_text, top_k=k), ensure_ascii=False, indent=2))
+    if args.command == "query":
+        print(json.dumps(query(args.arg, top_k=args.top_k),
+                         ensure_ascii=False, indent=2))
+    elif args.command == "node":
+        print(json.dumps(get_node(args.arg), ensure_ascii=False, indent=2))
+    elif args.command == "neighbors":
+        print(json.dumps(get_neighbors(args.arg, hops=args.hops),
+                         ensure_ascii=False, indent=2))
+    elif args.command == "subgraph":
+        print(json.dumps(get_subgraph(args.arg, hops=args.hops),
+                         ensure_ascii=False, indent=2))
