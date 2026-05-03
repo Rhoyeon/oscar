@@ -1,0 +1,134 @@
+# Oscar Harness KB - 예제 SPARQL 쿼리 모음
+# 그래프 직렬화: _workspace/03_knowledge_graph.ttl
+# 네임스페이스: https://oscar.ai/harness/
+
+PREFIX oscar:   <https://oscar.ai/harness/>
+PREFIX schema:  <https://schema.org/>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX owl:     <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+
+
+# ============================================================================
+# Q1. 황민호가 만든(created) 모든 산출물 (Harness 등) 라벨/버전
+# ----------------------------------------------------------------------------
+SELECT ?artifact ?label ?version WHERE {
+  ?person  oscar:name      "황민호" ;
+           oscar:created   ?artifact .
+  ?artifact oscar:name     ?label .
+  OPTIONAL { ?artifact oscar:version ?version . }
+}
+
+
+# ============================================================================
+# Q2. revfactory/harness 가 따르는(follows) 설계 원칙들
+# ----------------------------------------------------------------------------
+SELECT ?principle ?description WHERE {
+  ?h oscar:name "revfactory/harness" ;
+     oscar:follows ?p .
+  ?p oscar:name ?principle ;
+     oscar:description ?description .
+}
+
+
+# ============================================================================
+# Q3. BloomLabs Content Harness 의 발행 매체(publishesTo) 전체 목록
+# ----------------------------------------------------------------------------
+SELECT ?channel WHERE {
+  ?h oscar:name "BloomLabs Content Harness" ;
+     oscar:publishesTo ?c .
+  ?c oscar:name ?channel .
+}
+
+
+# ============================================================================
+# Q4. Claude Code Agent Teams 를 활성화하는 환경 변수와 설정 파일
+# ----------------------------------------------------------------------------
+SELECT ?envVar ?envValue ?configFile WHERE {
+  ?tech oscar:name "Claude Code Agent Teams" ;
+        oscar:activatedBy ?env .
+  ?env  oscar:name      ?envVar ;
+        oscar:envValue  ?envValue ;
+        oscar:configuredIn ?cfg .
+  ?cfg  oscar:name ?configFile .
+}
+
+
+# ============================================================================
+# Q5. 하네스 엔지니어링 패러다임 진화 체인 (evolvesInto 추적)
+# ----------------------------------------------------------------------------
+SELECT ?from ?fromYear ?to ?toYear WHERE {
+  ?a a oscar:EngineeringParadigm ;
+     oscar:name ?from ; oscar:year ?fromYear ;
+     oscar:evolvesInto ?b .
+  ?b oscar:name ?to ; oscar:year ?toYear .
+} ORDER BY ?fromYear
+
+
+# ============================================================================
+# Q6. A/B 실험이 측정한(measures) 품질 지표와 before/after/improvement
+# ----------------------------------------------------------------------------
+SELECT ?metric ?before ?after ?improvement WHERE {
+  ?exp oscar:name "A/B 실험" ;
+       oscar:measures ?m .
+  ?m   oscar:name ?metric .
+  OPTIONAL { ?m oscar:beforeValue  ?before . }
+  OPTIONAL { ?m oscar:afterValue   ?after . }
+  OPTIONAL { ?m oscar:improvement  ?improvement . }
+}
+
+
+# ============================================================================
+# Q7. revfactory/harness 의 6단계 워크플로우를 stepOrder 순으로 나열
+# ----------------------------------------------------------------------------
+SELECT ?step ?order WHERE {
+  ?h oscar:name "revfactory/harness" ;
+     oscar:hasWorkflowStep ?s .
+  ?s oscar:name ?step .
+  OPTIONAL { ?s oscar:stepOrder ?order . }
+} ORDER BY ?order
+
+
+# ============================================================================
+# Q8. 각 전문가 Role 이 활용하는(usesPattern) 아키텍처 패턴 매핑
+# ----------------------------------------------------------------------------
+SELECT ?role ?pattern WHERE {
+  ?r a oscar:Role ;
+     oscar:name ?role ;
+     oscar:usesPattern ?p .
+  ?p oscar:name ?pattern .
+} ORDER BY ?role
+
+
+# ============================================================================
+# Q9. Producer-Reviewer 패턴을 사용하는 모든 하네스 (역방향 조회)
+# ----------------------------------------------------------------------------
+SELECT ?harness WHERE {
+  ?p oscar:name "Producer-Reviewer" .
+  ?h oscar:supportsPattern|oscar:usesPattern ?p ;
+     oscar:name ?harness ;
+     a oscar:Harness .
+}
+
+
+# ============================================================================
+# Q10. 카카오 조직 트리: 카카오에 속한 팀과 그 리더, 팀이 추진하는(drives) 전략
+# ----------------------------------------------------------------------------
+SELECT ?team ?leader ?strategy WHERE {
+  ?org  oscar:name "카카오" .
+  ?team oscar:partOf ?org ;
+        oscar:name   ?teamName .
+  BIND(?teamName AS ?team)
+  OPTIONAL {
+    ?p oscar:leads ?team ;
+       oscar:name  ?leader .
+  }
+  OPTIONAL {
+    ?team oscar:drives ?s .
+    ?s    oscar:name   ?strategy .
+  }
+}
