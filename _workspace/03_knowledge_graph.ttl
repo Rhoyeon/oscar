@@ -1,0 +1,876 @@
+@prefix harness: <https://oscar.ai/harness/> .
+@prefix oscar: <https://oscar.ai/harness/instance/> .
+@prefix ocls: <https://oscar.ai/harness/class/> .
+@prefix oprop: <https://oscar.ai/harness/property/> .
+@prefix schema: <https://schema.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# ---- Class hierarchy (subset) ----
+ocls:Person a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:subClassOf ocls:Agent ;
+    owl:equivalentClass schema:Person ;
+    rdfs:comment "개인 인물." .
+
+ocls:Organization a owl:Class ;
+    rdfs:label "Organization" ;
+    rdfs:subClassOf ocls:Agent ;
+    owl:equivalentClass schema:Organization ;
+    rdfs:comment "조직 또는 기업." .
+
+ocls:Team a owl:Class ;
+    rdfs:label "Team" ;
+    rdfs:subClassOf ocls:Organization ;
+    owl:equivalentClass schema:Organization ;
+    rdfs:comment "조직 내부의 팀/부서." .
+
+ocls:AIAgent a owl:Class ;
+    rdfs:label "AIAgent" ;
+    rdfs:subClassOf ocls:Agent ;
+    rdfs:comment "AI 기반 자율 에이전트 (.claude/agents/에 정의되는 페르소나 포함)." .
+
+ocls:TeamLead a owl:Class ;
+    rdfs:label "TeamLead" ;
+    rdfs:subClassOf ocls:AIAgent ;
+    rdfs:comment "Agent Teams의 메인 세션, 작업 할당과 결과 종합 담당." .
+
+ocls:Teammate a owl:Class ;
+    rdfs:label "Teammate" ;
+    rdfs:subClassOf ocls:AIAgent ;
+    rdfs:comment "독립 컨텍스트 윈도우를 갖는 Claude Code 인스턴스." .
+
+ocls:Subagent a owl:Class ;
+    rdfs:label "Subagent" ;
+    rdfs:subClassOf ocls:AIAgent ;
+    rdfs:comment "메인 에이전트에게만 통신하는 서브 에이전트." .
+
+ocls:Concept a owl:Class ;
+    rdfs:label "Concept" ;
+    owl:equivalentClass schema:DefinedTerm ;
+    rdfs:comment "추상 개념, 철학, 방법론, 원칙 등 하네스 도메인 지식의 단위." .
+
+ocls:EngineeringParadigm a owl:Class ;
+    rdfs:label "EngineeringParadigm" ;
+    rdfs:subClassOf ocls:Concept ;
+    rdfs:comment "AI 엔지니어링 패러다임 (프롬프트/컨텍스트/하네스 엔지니어링)." .
+
+ocls:DesignPrinciple a owl:Class ;
+    rdfs:label "DesignPrinciple" ;
+    rdfs:subClassOf ocls:Concept ;
+    rdfs:comment "하네스 설계 철학/원칙 (Progressive Disclosure, Why-First, 경계 검증 등)." .
+
+ocls:Strategy a owl:Class ;
+    rdfs:label "Strategy" ;
+    rdfs:subClassOf ocls:Concept ;
+    rdfs:comment "조직/제품 전략 (예: AI Native 전략)." .
+
+ocls:Mechanism a owl:Class ;
+    rdfs:label "Mechanism" ;
+    rdfs:subClassOf ocls:Concept ;
+    rdfs:comment "기술 메커니즘 (컴팩션, 이벤트 소싱, 스냅샷 압축 등)." .
+
+ocls:Role a owl:Class ;
+    rdfs:label "Role" ;
+    rdfs:subClassOf ocls:Concept ;
+    owl:equivalentClass schema:Role ;
+    rdfs:comment "전문가 직무/역할 (개발자, PM, QA 등)." .
+
+ocls:License a owl:Class ;
+    rdfs:label "License" ;
+    rdfs:subClassOf ocls:Concept ;
+    owl:equivalentClass schema:CreativeWork ;
+    rdfs:comment "오픈소스 라이선스." .
+
+ocls:ArchitecturePattern a owl:Class ;
+    rdfs:label "ArchitecturePattern" ;
+    rdfs:comment "에이전트 오케스트레이션 아키텍처 패턴 (Pipeline, Fan-out/Fan-in 등)." .
+
+ocls:Harness a owl:Class ;
+    rdfs:label "Harness" ;
+    rdfs:subClassOf ocls:Artifact ;
+    owl:equivalentClass schema:SoftwareApplication ;
+    rdfs:comment "AI 에이전트 행동을 구조화하는 사전 설정 체계 (제품 단위)." .
+
+ocls:Technology a owl:Class ;
+    rdfs:label "Technology" ;
+    rdfs:subClassOf ocls:Artifact ;
+    owl:equivalentClass schema:SoftwareApplication ;
+    rdfs:comment "하네스가 동작하는 기반 기술/플랫폼." .
+
+ocls:Skill a owl:Class ;
+    rdfs:label "Skill" ;
+    rdfs:subClassOf ocls:Artifact ;
+    rdfs:comment ".claude/skills/에 정의되는 재사용 가능한 절차적 지식." .
+
+ocls:MetaSkill a owl:Class ;
+    rdfs:label "MetaSkill" ;
+    rdfs:subClassOf ocls:Skill ;
+    rdfs:comment "스킬을 만드는 스킬." .
+
+ocls:ConfigurationFile a owl:Class ;
+    rdfs:label "ConfigurationFile" ;
+    rdfs:subClassOf ocls:Artifact ;
+    rdfs:comment "하네스/플랫폼 설정 파일 (예: settings.json)." .
+
+ocls:EnvironmentVariable a owl:Class ;
+    rdfs:label "EnvironmentVariable" ;
+    rdfs:subClassOf ocls:Artifact ;
+    rdfs:comment "런타임 환경 변수." .
+
+ocls:PublicationChannel a owl:Class ;
+    rdfs:label "PublicationChannel" ;
+    rdfs:subClassOf ocls:Artifact ;
+    owl:equivalentClass schema:WebSite ;
+    rdfs:comment "콘텐츠 발행 매체 (Confluence, Wiki 등)." .
+
+ocls:CommunicationChannel a owl:Class ;
+    rdfs:label "CommunicationChannel" ;
+    rdfs:subClassOf ocls:Artifact ;
+    rdfs:comment "에이전트 간 협업/통신 메커니즘 (Shared Task List, Mailbox)." .
+
+ocls:Workflow a owl:Class ;
+    rdfs:label "Workflow" ;
+    rdfs:subClassOf ocls:Process ;
+    rdfs:comment "다단계 절차 (예: 6단계 하네스 구축 워크플로우, 7 State 워크플로우)." .
+
+ocls:WorkflowStep a owl:Class ;
+    rdfs:label "WorkflowStep" ;
+    rdfs:subClassOf ocls:Process ;
+    rdfs:comment "워크플로우 내 개별 단계." .
+
+ocls:Experiment a owl:Class ;
+    rdfs:label "Experiment" ;
+    rdfs:subClassOf ocls:Process ;
+    owl:equivalentClass schema:Observation ;
+    rdfs:comment "검증 실험 (예: A/B 실험)." .
+
+ocls:EvaluationSystem a owl:Class ;
+    rdfs:label "EvaluationSystem" ;
+    rdfs:subClassOf ocls:Metric ;
+    rdfs:comment "다축 평가 체계 (5축 100점, 디자인 3축 100점 등)." .
+
+ocls:QualityMetric a owl:Class ;
+    rdfs:label "QualityMetric" ;
+    rdfs:subClassOf ocls:Metric ;
+    owl:equivalentClass schema:PropertyValue ;
+    rdfs:comment "품질 점수, 승률, 출력 분산 같은 단일 지표." .
+
+# ---- Object/Data Properties ----
+oprop:worksFor a owl:ObjectProperty ;
+    rdfs:label "worksFor" ;
+    rdfs:domain ocls:Person ;
+    rdfs:range ocls:Organization ;
+    owl:equivalentProperty schema:worksFor ;
+    rdfs:comment "Mapped from predicate worksFor" .
+
+oprop:leads a owl:ObjectProperty ;
+    rdfs:label "leads" ;
+    rdfs:domain ocls:Person ;
+    rdfs:range ocls:Organization ;
+    rdfs:comment "Mapped from predicate leads" .
+
+oprop:partOf a owl:ObjectProperty ;
+    rdfs:label "partOf" ;
+    rdfs:domain ocls:Organization ;
+    rdfs:range ocls:Organization ;
+    owl:equivalentProperty schema:parentOrganization ;
+    rdfs:comment "Mapped from predicate partOf" .
+
+oprop:created a owl:ObjectProperty ;
+    rdfs:label "created" ;
+    rdfs:domain ocls:Agent ;
+    rdfs:range ocls:Artifact ;
+    owl:equivalentProperty schema:creator ;
+    rdfs:comment "Mapped from predicate created" .
+
+oprop:authored a owl:ObjectProperty ;
+    rdfs:label "authored" ;
+    rdfs:domain ocls:Person ;
+    rdfs:range ocls:Artifact ;
+    owl:equivalentProperty schema:author ;
+    rdfs:comment "Mapped from predicate authored" .
+
+oprop:operates a owl:ObjectProperty ;
+    rdfs:label "operates" ;
+    rdfs:domain ocls:Organization ;
+    rdfs:range ocls:Harness ;
+    rdfs:comment "Mapped from predicate operates" .
+
+oprop:drives a owl:ObjectProperty ;
+    rdfs:label "drives" ;
+    rdfs:domain ocls:Organization ;
+    rdfs:range ocls:Strategy ;
+    rdfs:comment "Mapped from predicate drives" .
+
+oprop:quotedAbout a owl:ObjectProperty ;
+    rdfs:label "quotedAbout" ;
+    rdfs:domain ocls:Person ;
+    rdfs:range ocls:Artifact ;
+    rdfs:comment "Mapped from predicate quotedAbout" .
+
+oprop:follows a owl:ObjectProperty ;
+    rdfs:label "follows" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:DesignPrinciple ;
+    rdfs:comment "Mapped from predicate follows" .
+
+oprop:supportsPattern a owl:ObjectProperty ;
+    rdfs:label "supportsPattern" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:ArchitecturePattern ;
+    rdfs:comment "Mapped from predicate supportsPattern" .
+
+oprop:usesPattern a owl:ObjectProperty ;
+    rdfs:label "usesPattern" ;
+    rdfs:domain ocls:Artifact ;
+    rdfs:range ocls:ArchitecturePattern ;
+    rdfs:comment "Mapped from predicate usesPattern" .
+
+oprop:implements a owl:ObjectProperty ;
+    rdfs:label "implements" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:Skill ;
+    rdfs:comment "Mapped from predicate implements" .
+
+oprop:definesAgent a owl:ObjectProperty ;
+    rdfs:label "definesAgent" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:AIAgent ;
+    rdfs:comment "Mapped from predicate definesAgent" .
+
+oprop:appliedTo a owl:ObjectProperty ;
+    rdfs:label "appliedTo" ;
+    rdfs:domain ocls:EngineeringParadigm ;
+    rdfs:range ocls:Technology ;
+    rdfs:comment "Mapped from predicate appliedTo" .
+
+oprop:evolvesInto a owl:ObjectProperty ;
+    rdfs:label "evolvesInto" ;
+    rdfs:domain ocls:EngineeringParadigm ;
+    rdfs:range ocls:EngineeringParadigm ;
+    rdfs:comment "Mapped from predicate evolvesInto" .
+
+oprop:hasMechanism a owl:ObjectProperty ;
+    rdfs:label "hasMechanism" ;
+    rdfs:domain ocls:Technology ;
+    rdfs:range ocls:Mechanism ;
+    rdfs:comment "Mapped from predicate hasMechanism" .
+
+oprop:logsVia a owl:ObjectProperty ;
+    rdfs:label "logsVia" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:Mechanism ;
+    rdfs:comment "Mapped from predicate logsVia" .
+
+oprop:featureOf a owl:ObjectProperty ;
+    rdfs:label "featureOf" ;
+    rdfs:domain ocls:Technology ;
+    rdfs:range ocls:Technology ;
+    rdfs:comment "Mapped from predicate featureOf" .
+
+oprop:includes a owl:ObjectProperty ;
+    rdfs:label "includes" ;
+    rdfs:domain ocls:Technology ;
+    rdfs:range ocls:Agent ;
+    rdfs:comment "Mapped from predicate includes" .
+
+oprop:uses a owl:ObjectProperty ;
+    rdfs:label "uses" ;
+    rdfs:domain ocls:Technology ;
+    rdfs:range ocls:Artifact ;
+    rdfs:comment "Mapped from predicate uses" .
+
+oprop:activatedBy a owl:ObjectProperty ;
+    rdfs:label "activatedBy" ;
+    rdfs:domain ocls:Technology ;
+    rdfs:range ocls:EnvironmentVariable ;
+    rdfs:comment "Mapped from predicate activatedBy" .
+
+oprop:configuredIn a owl:ObjectProperty ;
+    rdfs:label "configuredIn" ;
+    rdfs:domain ocls:EnvironmentVariable ;
+    rdfs:range ocls:ConfigurationFile ;
+    rdfs:comment "Mapped from predicate configuredIn" .
+
+oprop:differsFrom a owl:ObjectProperty ;
+    rdfs:label "differsFrom" ;
+    rdfs:domain ocls:AIAgent ;
+    rdfs:range ocls:AIAgent ;
+    rdfs:comment "Mapped from predicate differsFrom" .
+
+oprop:publishesTo a owl:ObjectProperty ;
+    rdfs:label "publishesTo" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:PublicationChannel ;
+    rdfs:comment "Mapped from predicate publishesTo" .
+
+oprop:licensedUnder a owl:ObjectProperty ;
+    rdfs:label "licensedUnder" ;
+    rdfs:domain ocls:Artifact ;
+    rdfs:range ocls:License ;
+    owl:equivalentProperty schema:license ;
+    rdfs:comment "Mapped from predicate licensedUnder" .
+
+oprop:hasWorkflow a owl:ObjectProperty ;
+    rdfs:label "hasWorkflow" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:Workflow ;
+    rdfs:comment "Mapped from predicate hasWorkflow" .
+
+oprop:hasWorkflowStep a owl:ObjectProperty ;
+    rdfs:label "hasWorkflowStep" ;
+    rdfs:domain ocls:Workflow ;
+    rdfs:range ocls:WorkflowStep ;
+    owl:equivalentProperty schema:step ;
+    rdfs:comment "Mapped from predicate hasWorkflowStep" .
+
+oprop:validatedBy a owl:ObjectProperty ;
+    rdfs:label "validatedBy" ;
+    rdfs:domain ocls:Harness ;
+    rdfs:range ocls:Experiment ;
+    rdfs:comment "Mapped from predicate validatedBy" .
+
+oprop:measures a owl:ObjectProperty ;
+    rdfs:label "measures" ;
+    rdfs:domain ocls:Experiment ;
+    rdfs:range ocls:Metric ;
+    rdfs:comment "Mapped from predicate measures" .
+
+# ---- Instances (nodes) ----
+oscar:Person_E001 a ocls:Person ;
+    rdfs:label "황민호" ;
+    dcterms:identifier "E001" ;
+    oprop:confidence "0.98"^^xsd:decimal ;
+    rdfs:comment "카카오 AI Native 전략 팀 리더, revfactory/harness 제작자, GitHub ID: revfactory" ;
+    oprop:github_id "revfactory" ;
+    oprop:role "카카오 AI Native 전략 팀 리더" .
+
+oscar:Organization_E002 a ocls:Organization ;
+    rdfs:label "카카오" ;
+    dcterms:identifier "E002" ;
+    oprop:confidence "0.98"^^xsd:decimal ;
+    rdfs:comment "황민호가 소속된 기업, AI Native 전략 팀 보유" .
+
+oscar:Team_E003 a ocls:Team ;
+    rdfs:label "카카오 AI Native 전략 팀" ;
+    dcterms:identifier "E003" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "카카오 내 AI Native 전략 담당 조직" .
+
+oscar:Person_E004 a ocls:Person ;
+    rdfs:label "PSMON" ;
+    dcterms:identifier "E004" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "본 문서의 작성자" .
+
+oscar:Person_E005 a ocls:Person ;
+    rdfs:label "메이커 에반" ;
+    dcterms:identifier "E005" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "유튜버, '클로드 코드는 치매에 걸린 아인슈타인이다' 발언자" .
+
+oscar:Person_E006 a ocls:Person ;
+    rdfs:label "오후다섯씨" ;
+    dcterms:identifier "E006" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "참고 자료에 언급된 인물/채널" .
+
+oscar:Organization_E007 a ocls:Organization ;
+    rdfs:label "BloomLabs" ;
+    dcterms:identifier "E007" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "Content Harness 운영 조직" .
+
+oscar:Concept_E008 a ocls:Concept ;
+    rdfs:label "하네스" ;
+    dcterms:identifier "E008" ;
+    oprop:confidence "0.99"^^xsd:decimal ;
+    rdfs:comment "AI 에이전트의 행동을 구조화하는 사전 설정 체계, 말의 마구(馬具)에서 유래" ;
+    oprop:etymology "마구(馬具)" .
+
+oscar:EngineeringParadigm_E009 a ocls:EngineeringParadigm ;
+    rdfs:label "하네스 엔지니어링" ;
+    dcterms:identifier "E009" ;
+    oprop:confidence "0.98"^^xsd:decimal ;
+    rdfs:comment "2026년의 핵심 AI 엔지니어링 역량" ;
+    oprop:year "2026" .
+
+oscar:Skill_E010 a ocls:Skill ;
+    rdfs:label "스킬" ;
+    dcterms:identifier "E010" ;
+    oprop:confidence "0.97"^^xsd:decimal ;
+    rdfs:comment ".claude/skills/에 정의되는 재사용 가능한 절차적 지식" ;
+    oprop:definitionPath ".claude/skills/" .
+
+oscar:AIAgent_E011 a ocls:AIAgent ;
+    rdfs:label "에이전트" ;
+    dcterms:identifier "E011" ;
+    oprop:confidence "0.97"^^xsd:decimal ;
+    rdfs:comment ".claude/agents/에 정의되는 전문가 페르소나" ;
+    oprop:definitionPath ".claude/agents/" .
+
+oscar:MetaSkill_E012 a ocls:MetaSkill ;
+    rdfs:label "메타 스킬" ;
+    dcterms:identifier "E012" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "스킬을 만드는 스킬" .
+
+oscar:Mechanism_E013 a ocls:Mechanism ;
+    rdfs:label "컴팩션" ;
+    dcterms:identifier "E013" ;
+    oprop:confidence "0.93"^^xsd:decimal ;
+    rdfs:comment "컨텍스트가 쌓이면 발동되는 압축 메커니즘" .
+
+oscar:DesignPrinciple_E014 a ocls:DesignPrinciple ;
+    rdfs:label "Progressive Disclosure" ;
+    dcterms:identifier "E014" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호의 하네스 핵심 철학 중 하나, 점진적 정보 공개" .
+
+oscar:DesignPrinciple_E015 a ocls:DesignPrinciple ;
+    rdfs:label "Why-First 문서화" ;
+    dcterms:identifier "E015" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호의 하네스 핵심 철학, 이유부터 설명하는 문서화" .
+
+oscar:DesignPrinciple_E016 a ocls:DesignPrinciple ;
+    rdfs:label "경계 검증" ;
+    dcterms:identifier "E016" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "민호의 하네스 핵심 철학, boundary validation" .
+
+oscar:DesignPrinciple_E017 a ocls:DesignPrinciple ;
+    rdfs:label "구조화된 사전 설정" ;
+    dcterms:identifier "E017" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "민호의 하네스 핵심 철학" .
+
+oscar:EngineeringParadigm_E018 a ocls:EngineeringParadigm ;
+    rdfs:label "프롬프트 엔지니어링" ;
+    dcterms:identifier "E018" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "2024년의 AI 엔지니어링 패러다임" ;
+    oprop:year "2024" .
+
+oscar:EngineeringParadigm_E019 a ocls:EngineeringParadigm ;
+    rdfs:label "컨텍스트 엔지니어링" ;
+    dcterms:identifier "E019" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "2025년의 AI 엔지니어링 패러다임" ;
+    oprop:year "2025" .
+
+oscar:Technology_E020 a ocls:Technology ;
+    rdfs:label "Claude Code" ;
+    dcterms:identifier "E020" ;
+    oprop:confidence "0.98"^^xsd:decimal ;
+    rdfs:comment "Anthropic의 공식 코딩 CLI" .
+
+oscar:Technology_E021 a ocls:Technology ;
+    rdfs:label "Claude Code Agent Teams" ;
+    dcterms:identifier "E021" ;
+    oprop:confidence "0.97"^^xsd:decimal ;
+    rdfs:comment "Claude Code v2.1.32부터 도입된 실험적 다중 에이전트 협업 기능" ;
+    oprop:min_version "Claude Code v2.1.32" ;
+    oprop:status "experimental" ;
+    oprop:communication "팀원 간" ;
+    oprop:coordination "공유 Task List" ;
+    oprop:token_cost "높음" ;
+    oprop:minVersion "Claude Code v2.1.32" .
+
+oscar:TeamLead_E022 a ocls:TeamLead ;
+    rdfs:label "Team Lead" ;
+    dcterms:identifier "E022" ;
+    oprop:confidence "0.92"^^xsd:decimal ;
+    rdfs:comment "Agent Teams의 메인 세션, 팀 생성/작업 할당/결과 종합 담당" .
+
+oscar:Teammate_E023 a ocls:Teammate ;
+    rdfs:label "Teammates" ;
+    dcterms:identifier "E023" ;
+    oprop:confidence "0.92"^^xsd:decimal ;
+    rdfs:comment "독립 Claude Code 인스턴스, 자체 컨텍스트 윈도우에서 작동" .
+
+oscar:CommunicationChannel_E024 a ocls:CommunicationChannel ;
+    rdfs:label "Shared Task List" ;
+    dcterms:identifier "E024" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "팀원들이 claim하고 완료하는 공유 작업 목록" .
+
+oscar:CommunicationChannel_E025 a ocls:CommunicationChannel ;
+    rdfs:label "Mailbox" ;
+    dcterms:identifier "E025" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "에이전트 간 직접 메시징 시스템" .
+
+oscar:Subagent_E026 a ocls:Subagent ;
+    rdfs:label "Subagent" ;
+    dcterms:identifier "E026" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "메인 에이전트에게만 통신하는 서브 에이전트, 토큰비용 낮음" ;
+    oprop:communication "메인에게만" ;
+    oprop:coordination "메인 관리" ;
+    oprop:token_cost "낮음" .
+
+oscar:ConfigurationFile_E027 a ocls:ConfigurationFile ;
+    rdfs:label "settings.json" ;
+    dcterms:identifier "E027" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "Claude Code 설정 파일" .
+
+oscar:EnvironmentVariable_E028 a ocls:EnvironmentVariable ;
+    rdfs:label "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS" ;
+    dcterms:identifier "E028" ;
+    oprop:confidence "0.92"^^xsd:decimal ;
+    rdfs:comment "Agent Teams 활성화 환경 변수, 값=1" ;
+    oprop:value "1" ;
+    oprop:type "environment_variable" .
+
+oscar:Harness_E029 a ocls:Harness ;
+    rdfs:label "revfactory/harness" ;
+    dcterms:identifier "E029" ;
+    oprop:confidence "0.97"^^xsd:decimal ;
+    rdfs:comment "황민호가 만든 오픈소스 하네스, v1.0.1, 2026-03-28, Apache 2.0" ;
+    oprop:version "v1.0.1" ;
+    oprop:release_date "2026-03-28" ;
+    oprop:license "Apache 2.0" ;
+    oprop:workflow_steps "6" ;
+    oprop:architecture_patterns "6" .
+
+oscar:Harness_E030 a ocls:Harness ;
+    rdfs:label "revfactory/harness-100" ;
+    dcterms:identifier "E030" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "10개 도메인, 200개 프로덕션 패키지, 1808개 마크다운 파일" ;
+    oprop:domain_count "10" ;
+    oprop:production_packages "200" ;
+    oprop:markdown_files "1808" .
+
+oscar:Harness_E031 a ocls:Harness ;
+    rdfs:label "revfactory/claude-code-harness" ;
+    dcterms:identifier "E031" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "참고 자료에 언급된 또 다른 하네스 레포지토리" .
+
+oscar:Harness_E032 a ocls:Harness ;
+    rdfs:label "BloomLabs Content Harness" ;
+    dcterms:identifier "E032" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "콘텐츠 작성 품질 관리용 개인용 하네스, v0.10.0" ;
+    oprop:version "v0.10.0" ;
+    oprop:agent_count "3" ;
+    oprop:skill_count "11" ;
+    oprop:state_count "7" ;
+    oprop:publish_channel_count "5" ;
+    oprop:evaluation_axes "5축 100점 + 디자인 3축 100점" .
+
+oscar:License_E033 a ocls:License ;
+    rdfs:label "Apache 2.0" ;
+    dcterms:identifier "E033" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "오픈소스 라이선스" .
+
+oscar:ArchitecturePattern_E034 a ocls:ArchitecturePattern ;
+    rdfs:label "Pipeline" ;
+    dcterms:identifier "E034" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "순차 처리 아키텍처 패턴" .
+
+oscar:ArchitecturePattern_E035 a ocls:ArchitecturePattern ;
+    rdfs:label "Fan-out/Fan-in" ;
+    dcterms:identifier "E035" ;
+    oprop:confidence "0.95"^^xsd:decimal ;
+    rdfs:comment "병렬 분산 후 통합 패턴" .
+
+oscar:ArchitecturePattern_E036 a ocls:ArchitecturePattern ;
+    rdfs:label "Expert Pool" ;
+    dcterms:identifier "E036" ;
+    oprop:confidence "0.93"^^xsd:decimal ;
+    rdfs:comment "전문가 풀 패턴" .
+
+oscar:ArchitecturePattern_E037 a ocls:ArchitecturePattern ;
+    rdfs:label "Producer-Reviewer" ;
+    dcterms:identifier "E037" ;
+    oprop:confidence "0.93"^^xsd:decimal ;
+    rdfs:comment "생산자-검토자 패턴, BloomLabs Content Harness가 사용" .
+
+oscar:ArchitecturePattern_E038 a ocls:ArchitecturePattern ;
+    rdfs:label "Supervisor" ;
+    dcterms:identifier "E038" ;
+    oprop:confidence "0.93"^^xsd:decimal ;
+    rdfs:comment "감독자 패턴" .
+
+oscar:ArchitecturePattern_E039 a ocls:ArchitecturePattern ;
+    rdfs:label "Hierarchical Delegation" ;
+    dcterms:identifier "E039" ;
+    oprop:confidence "0.93"^^xsd:decimal ;
+    rdfs:comment "계층적 위임 패턴" .
+
+oscar:WorkflowStep_E040 a ocls:WorkflowStep ;
+    rdfs:label "도메인분석" ;
+    dcterms:identifier "E040" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 1단계" .
+
+oscar:WorkflowStep_E041 a ocls:WorkflowStep ;
+    rdfs:label "팀아키텍처설계" ;
+    dcterms:identifier "E041" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 2단계" .
+
+oscar:WorkflowStep_E042 a ocls:WorkflowStep ;
+    rdfs:label "에이전트정의생성" ;
+    dcterms:identifier "E042" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 3단계" .
+
+oscar:WorkflowStep_E043 a ocls:WorkflowStep ;
+    rdfs:label "스킬생성" ;
+    dcterms:identifier "E043" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 4단계" .
+
+oscar:WorkflowStep_E044 a ocls:WorkflowStep ;
+    rdfs:label "통합&오케스트레이션" ;
+    dcterms:identifier "E044" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 5단계" .
+
+oscar:WorkflowStep_E045 a ocls:WorkflowStep ;
+    rdfs:label "검증&테스트" ;
+    dcterms:identifier "E045" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 6단계 워크플로우 6단계" .
+
+oscar:AIAgent_E046 a ocls:AIAgent ;
+    rdfs:label "researcher" ;
+    dcterms:identifier "E046" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스의 고정 에이전트" .
+
+oscar:AIAgent_E047 a ocls:AIAgent ;
+    rdfs:label "writer" ;
+    dcterms:identifier "E047" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스의 고정 에이전트" .
+
+oscar:AIAgent_E048 a ocls:AIAgent ;
+    rdfs:label "evaluator" ;
+    dcterms:identifier "E048" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스의 고정 에이전트" .
+
+oscar:Workflow_E049 a ocls:Workflow ;
+    rdfs:label "7 State 워크플로우" ;
+    dcterms:identifier "E049" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스 워크플로우, idle→recording 등 7개 상태" ;
+    oprop:states "idle→recording (7개)" .
+
+oscar:EvaluationSystem_E050 a ocls:EvaluationSystem ;
+    rdfs:label "5축 100점 평가" ;
+    dcterms:identifier "E050" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "BloomLabs Content Harness의 콘텐츠 평가 체계" .
+
+oscar:EvaluationSystem_E051 a ocls:EvaluationSystem ;
+    rdfs:label "디자인 3축 100점" ;
+    dcterms:identifier "E051" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "BloomLabs Content Harness의 디자인 평가 체계" .
+
+oscar:Concept_E052 a ocls:Concept ;
+    rdfs:label "RPG 게이미피케이션" ;
+    dcterms:identifier "E052" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "레벨/업적/XP 시스템" ;
+    oprop:components "레벨/업적/XP" .
+
+oscar:Mechanism_E053 a ocls:Mechanism ;
+    rdfs:label "이벤트 소싱" ;
+    dcterms:identifier "E053" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스의 로그 방식" .
+
+oscar:Mechanism_E054 a ocls:Mechanism ;
+    rdfs:label "스냅샷 압축" ;
+    dcterms:identifier "E054" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 하네스의 로그 보조 방식" .
+
+oscar:PublicationChannel_E055 a ocls:PublicationChannel ;
+    rdfs:label "Memorizer" ;
+    dcterms:identifier "E055" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 발행 매체 중 하나" .
+
+oscar:PublicationChannel_E056 a ocls:PublicationChannel ;
+    rdfs:label "Confluence" ;
+    dcterms:identifier "E056" ;
+    oprop:confidence "0.92"^^xsd:decimal ;
+    rdfs:comment "Atlassian 협업 위키, BloomLabs 발행 매체" .
+
+oscar:PublicationChannel_E057 a ocls:PublicationChannel ;
+    rdfs:label "Webnori Wiki" ;
+    dcterms:identifier "E057" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 발행 매체" .
+
+oscar:PublicationChannel_E058 a ocls:PublicationChannel ;
+    rdfs:label "private-doc" ;
+    dcterms:identifier "E058" ;
+    oprop:confidence "0.8"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 발행 매체, 사적 문서" .
+
+oscar:PublicationChannel_E059 a ocls:PublicationChannel ;
+    rdfs:label "Pencil Design" ;
+    dcterms:identifier "E059" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "BloomLabs 발행 매체, 디자인 매체" .
+
+oscar:Experiment_E060 a ocls:Experiment ;
+    rdfs:label "A/B 실험" ;
+    dcterms:identifier "E060" ;
+    oprop:confidence "0.92"^^xsd:decimal ;
+    rdfs:comment "민호 하네스 효과 검증 실험" .
+
+oscar:QualityMetric_E061 a ocls:QualityMetric ;
+    rdfs:label "품질 점수" ;
+    dcterms:identifier "E061" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "A/B 실험 평가 지표 (49.5→79.3)" ;
+    oprop:before "49.5" ;
+    oprop:after "79.3" ;
+    oprop:improvement_pct "+60%" .
+
+oscar:QualityMetric_E062 a ocls:QualityMetric ;
+    rdfs:label "승률" ;
+    dcterms:identifier "E062" ;
+    oprop:confidence "0.9"^^xsd:decimal ;
+    rdfs:comment "A/B 실험 평가 지표 (0%→100%, 15전 15승)" ;
+    oprop:before "0%" ;
+    oprop:after "100%" ;
+    oprop:record "15전 15승" .
+
+oscar:QualityMetric_E063 a ocls:QualityMetric ;
+    rdfs:label "출력 분산" ;
+    dcterms:identifier "E063" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "A/B 실험 평가 지표 (-32%)" ;
+    oprop:change "-32%" .
+
+oscar:Role_E064 a ocls:Role ;
+    rdfs:label "개발자" ;
+    dcterms:identifier "E064" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Fan-out + Expert Pool 활용" .
+
+oscar:Role_E065 a ocls:Role ;
+    rdfs:label "PM/기획자" ;
+    dcterms:identifier "E065" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Supervisor + Pipeline 활용" .
+
+oscar:Role_E066 a ocls:Role ;
+    rdfs:label "콘텐츠 제작자" ;
+    dcterms:identifier "E066" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Producer-Reviewer + Fan-out 활용" .
+
+oscar:Role_E067 a ocls:Role ;
+    rdfs:label "QA 엔지니어" ;
+    dcterms:identifier "E067" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Expert Pool + Pipeline 활용" .
+
+oscar:Role_E068 a ocls:Role ;
+    rdfs:label "데이터 분석가" ;
+    dcterms:identifier "E068" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Fan-out/Fan-in 활용" .
+
+oscar:Role_E069 a ocls:Role ;
+    rdfs:label "교육자" ;
+    dcterms:identifier "E069" ;
+    oprop:confidence "0.85"^^xsd:decimal ;
+    rdfs:comment "전문가 직무, Hierarchical Delegation 활용" .
+
+oscar:Strategy_E070 a ocls:Strategy ;
+    rdfs:label "AI Native 전략" ;
+    dcterms:identifier "E070" ;
+    oprop:confidence "0.88"^^xsd:decimal ;
+    rdfs:comment "AI를 기본 전제로 하는 조직/제품 전략" .
+
+# ---- Relations (edges) ----
+oscar:Person_E001 oprop:worksFor oscar:Organization_E002 .
+oscar:Person_E001 oprop:leads oscar:Team_E003 .
+oscar:Team_E003 oprop:partOf oscar:Organization_E002 .
+oscar:Person_E001 oprop:created oscar:Harness_E029 .
+oscar:Person_E001 oprop:created oscar:Harness_E030 .
+oscar:Person_E004 oprop:authored oscar:EngineeringParadigm_E009 .
+oscar:Person_E005 oprop:quotedAbout oscar:Technology_E020 .
+oscar:Organization_E007 oprop:operates oscar:Harness_E032 .
+oscar:EngineeringParadigm_E009 oprop:appliedTo oscar:Technology_E020 .
+oscar:Technology_E021 oprop:featureOf oscar:Technology_E020 .
+oscar:Technology_E021 oprop:includes oscar:TeamLead_E022 .
+oscar:Technology_E021 oprop:includes oscar:Teammate_E023 .
+oscar:Technology_E021 oprop:uses oscar:CommunicationChannel_E024 .
+oscar:Technology_E021 oprop:uses oscar:CommunicationChannel_E025 .
+oscar:Technology_E021 oprop:activatedBy oscar:EnvironmentVariable_E028 .
+oscar:EnvironmentVariable_E028 oprop:configuredIn oscar:ConfigurationFile_E027 .
+oscar:Technology_E021 oprop:differsFrom oscar:Subagent_E026 .
+oscar:Harness_E029 oprop:licensedUnder oscar:License_E033 .
+oscar:Harness_E029 oprop:implements oscar:MetaSkill_E012 .
+oscar:Harness_E029 oprop:follows oscar:DesignPrinciple_E014 .
+oscar:Harness_E029 oprop:follows oscar:DesignPrinciple_E015 .
+oscar:Harness_E029 oprop:follows oscar:DesignPrinciple_E016 .
+oscar:Harness_E029 oprop:follows oscar:DesignPrinciple_E017 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E034 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E035 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E036 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E037 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E038 .
+oscar:Harness_E029 oprop:supportsPattern oscar:ArchitecturePattern_E039 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E040 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E041 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E042 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E043 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E044 .
+oscar:Harness_E029 oprop:hasWorkflowStep oscar:WorkflowStep_E045 .
+oscar:Harness_E029 oprop:validatedBy oscar:Experiment_E060 .
+oscar:Experiment_E060 oprop:measures oscar:QualityMetric_E061 .
+oscar:Experiment_E060 oprop:measures oscar:QualityMetric_E062 .
+oscar:Experiment_E060 oprop:measures oscar:QualityMetric_E063 .
+oscar:Harness_E032 oprop:definesAgent oscar:AIAgent_E046 .
+oscar:Harness_E032 oprop:definesAgent oscar:AIAgent_E047 .
+oscar:Harness_E032 oprop:definesAgent oscar:AIAgent_E048 .
+oscar:Harness_E032 oprop:usesPattern oscar:ArchitecturePattern_E037 .
+oscar:Harness_E032 oprop:hasWorkflow oscar:Workflow_E049 .
+oscar:Harness_E032 oprop:uses oscar:EvaluationSystem_E050 .
+oscar:Harness_E032 oprop:uses oscar:EvaluationSystem_E051 .
+oscar:Harness_E032 oprop:uses oscar:Concept_E052 .
+oscar:Harness_E032 oprop:logsVia oscar:Mechanism_E053 .
+oscar:Harness_E032 oprop:logsVia oscar:Mechanism_E054 .
+oscar:Harness_E032 oprop:publishesTo oscar:PublicationChannel_E055 .
+oscar:Harness_E032 oprop:publishesTo oscar:PublicationChannel_E056 .
+oscar:Harness_E032 oprop:publishesTo oscar:PublicationChannel_E057 .
+oscar:Harness_E032 oprop:publishesTo oscar:PublicationChannel_E058 .
+oscar:Harness_E032 oprop:publishesTo oscar:PublicationChannel_E059 .
+oscar:EngineeringParadigm_E018 oprop:evolvesInto oscar:EngineeringParadigm_E019 .
+oscar:EngineeringParadigm_E019 oprop:evolvesInto oscar:EngineeringParadigm_E009 .
+oscar:Role_E064 oprop:usesPattern oscar:ArchitecturePattern_E035 .
+oscar:Role_E064 oprop:usesPattern oscar:ArchitecturePattern_E036 .
+oscar:Role_E065 oprop:usesPattern oscar:ArchitecturePattern_E038 .
+oscar:Role_E065 oprop:usesPattern oscar:ArchitecturePattern_E034 .
+oscar:Role_E066 oprop:usesPattern oscar:ArchitecturePattern_E037 .
+oscar:Role_E066 oprop:usesPattern oscar:ArchitecturePattern_E035 .
+oscar:Role_E067 oprop:usesPattern oscar:ArchitecturePattern_E036 .
+oscar:Role_E067 oprop:usesPattern oscar:ArchitecturePattern_E034 .
+oscar:Role_E068 oprop:usesPattern oscar:ArchitecturePattern_E035 .
+oscar:Role_E069 oprop:usesPattern oscar:ArchitecturePattern_E039 .
+oscar:Team_E003 oprop:drives oscar:Strategy_E070 .
+oscar:Technology_E020 oprop:hasMechanism oscar:Mechanism_E013 .

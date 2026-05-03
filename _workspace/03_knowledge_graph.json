@@ -1,170 +1,1795 @@
 {
-  "metadata": {
-    "namespace": "https://oscar.ai/harness/",
-    "uri_pattern": "https://oscar.ai/harness/instance/{class}/{id}",
-    "build_date": "2026-05-03",
-    "source": "01_analyst_extraction.json",
-    "schema": "02_ontology_schema.json",
-    "builder": "oscar-graph-builder"
-  },
   "nodes": [
-    {"id": "N001", "uri": "https://oscar.ai/harness/instance/Person/E001", "class": "C002", "label": "황민호", "properties": {"description": "카카오 AI Native 전략 팀 리더, revfactory/harness 제작자", "githubId": "revfactory", "role": "카카오 AI Native 전략 팀 리더", "confidence": 0.98}, "provisional": false},
-    {"id": "N002", "uri": "https://oscar.ai/harness/instance/Organization/E002", "class": "C003", "label": "카카오", "properties": {"description": "황민호가 소속된 기업", "confidence": 0.98}, "provisional": false},
-    {"id": "N003", "uri": "https://oscar.ai/harness/instance/Team/E003", "class": "C004", "label": "카카오 AI Native 전략 팀", "properties": {"description": "카카오 내 AI Native 전략 담당 조직", "confidence": 0.95}, "provisional": false},
-    {"id": "N004", "uri": "https://oscar.ai/harness/instance/Person/E004", "class": "C002", "label": "PSMON", "properties": {"description": "본 문서의 작성자", "confidence": 0.9}, "provisional": false},
-    {"id": "N005", "uri": "https://oscar.ai/harness/instance/Person/E005", "class": "C002", "label": "메이커 에반", "properties": {"description": "유튜버", "confidence": 0.9}, "provisional": false},
-    {"id": "N006", "uri": "https://oscar.ai/harness/instance/Person/E006", "class": "C002", "label": "오후다섯씨", "properties": {"description": "참고 자료 인물/채널", "confidence": 0.85}, "provisional": false},
-    {"id": "N007", "uri": "https://oscar.ai/harness/instance/Organization/E007", "class": "C003", "label": "BloomLabs", "properties": {"description": "Content Harness 운영 조직 (추정)", "confidence": 0.85}, "provisional": false},
-    {"id": "N008", "uri": "https://oscar.ai/harness/instance/Concept/E008", "class": "C100", "label": "하네스", "properties": {"description": "AI 에이전트의 행동을 구조화하는 사전 설정 체계", "etymology": "마구(馬具)", "confidence": 0.99}, "provisional": false},
-    {"id": "N009", "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E009", "class": "C101", "label": "하네스 엔지니어링", "properties": {"description": "2026년 핵심 AI 엔지니어링 역량", "year": "2026", "confidence": 0.98}, "provisional": false},
-    {"id": "N010", "uri": "https://oscar.ai/harness/instance/Skill/E010", "class": "C303", "label": "스킬", "properties": {"description": ".claude/skills/에 정의되는 재사용 가능한 절차적 지식", "definitionPath": ".claude/skills/", "confidence": 0.97}, "provisional": false},
-    {"id": "N011", "uri": "https://oscar.ai/harness/instance/AIAgent/E011", "class": "C005", "label": "에이전트", "properties": {"description": ".claude/agents/에 정의되는 전문가 페르소나", "definitionPath": ".claude/agents/", "confidence": 0.97}, "provisional": false},
-    {"id": "N012", "uri": "https://oscar.ai/harness/instance/MetaSkill/E012", "class": "C304", "label": "메타 스킬", "properties": {"description": "스킬을 만드는 스킬", "confidence": 0.95}, "provisional": false},
-    {"id": "N013", "uri": "https://oscar.ai/harness/instance/Mechanism/E013", "class": "C104", "label": "컴팩션", "properties": {"description": "컨텍스트 압축 메커니즘", "confidence": 0.93}, "provisional": false},
-    {"id": "N014", "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E014", "class": "C102", "label": "Progressive Disclosure", "properties": {"description": "점진적 정보 공개", "confidence": 0.9}, "provisional": false},
-    {"id": "N015", "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E015", "class": "C102", "label": "Why-First 문서화", "properties": {"description": "이유부터 설명하는 문서화", "confidence": 0.9}, "provisional": false},
-    {"id": "N016", "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E016", "class": "C102", "label": "경계 검증", "properties": {"description": "boundary validation", "confidence": 0.88}, "provisional": false},
-    {"id": "N017", "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E017", "class": "C102", "label": "구조화된 사전 설정", "properties": {"description": "민호의 하네스 핵심 철학", "confidence": 0.88}, "provisional": false},
-    {"id": "N018", "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E018", "class": "C101", "label": "프롬프트 엔지니어링", "properties": {"year": "2024", "confidence": 0.95}, "provisional": false},
-    {"id": "N019", "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E019", "class": "C101", "label": "컨텍스트 엔지니어링", "properties": {"year": "2025", "confidence": 0.95}, "provisional": false},
-    {"id": "N020", "uri": "https://oscar.ai/harness/instance/Technology/E020", "class": "C302", "label": "Claude Code", "properties": {"description": "Anthropic의 공식 코딩 CLI", "confidence": 0.98}, "provisional": false},
-    {"id": "N021", "uri": "https://oscar.ai/harness/instance/Technology/E021", "class": "C302", "label": "Claude Code Agent Teams", "properties": {"description": "v2.1.32부터 도입된 다중 에이전트 협업 기능", "minVersion": "Claude Code v2.1.32", "status": "experimental", "communicationStyle": "팀원 간", "tokenCost": "높음", "confidence": 0.97}, "provisional": false},
-    {"id": "N022", "uri": "https://oscar.ai/harness/instance/TeamLead/E022", "class": "C006", "label": "Team Lead", "properties": {"description": "메인 세션, 팀 생성/작업 할당/결과 종합", "confidence": 0.92}, "provisional": false},
-    {"id": "N023", "uri": "https://oscar.ai/harness/instance/Teammate/E023", "class": "C007", "label": "Teammates", "properties": {"description": "독립 Claude Code 인스턴스", "confidence": 0.92}, "provisional": false},
-    {"id": "N024", "uri": "https://oscar.ai/harness/instance/CommunicationChannel/E024", "class": "C308", "label": "Shared Task List", "properties": {"description": "팀원 공유 작업 목록", "confidence": 0.9}, "provisional": false},
-    {"id": "N025", "uri": "https://oscar.ai/harness/instance/CommunicationChannel/E025", "class": "C308", "label": "Mailbox", "properties": {"description": "에이전트 간 직접 메시징", "confidence": 0.9}, "provisional": false},
-    {"id": "N026", "uri": "https://oscar.ai/harness/instance/Subagent/E026", "class": "C008", "label": "Subagent", "properties": {"description": "메인 에이전트에게만 통신하는 서브 에이전트", "communicationStyle": "메인에게만", "tokenCost": "낮음", "confidence": 0.88}, "provisional": false},
-    {"id": "N027", "uri": "https://oscar.ai/harness/instance/ConfigurationFile/E027", "class": "C305", "label": "settings.json", "properties": {"description": "Claude Code 설정 파일", "confidence": 0.9}, "provisional": false},
-    {"id": "N028", "uri": "https://oscar.ai/harness/instance/EnvironmentVariable/E028", "class": "C306", "label": "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS", "properties": {"envValue": "1", "confidence": 0.92}, "provisional": false},
-    {"id": "N029", "uri": "https://oscar.ai/harness/instance/Harness/E029", "class": "C301", "label": "revfactory/harness", "properties": {"description": "황민호가 만든 오픈소스 하네스", "version": "v1.0.1", "releaseDate": "2026-03-28", "license": "Apache 2.0", "confidence": 0.97}, "provisional": false},
-    {"id": "N030", "uri": "https://oscar.ai/harness/instance/Harness/E030", "class": "C301", "label": "revfactory/harness-100", "properties": {"description": "10개 도메인, 200개 패키지, 1808개 마크다운", "domainCount": 10, "packageCount": 200, "markdownFileCount": 1808, "confidence": 0.95}, "provisional": false},
-    {"id": "N031", "uri": "https://oscar.ai/harness/instance/Harness/E031", "class": "C301", "label": "revfactory/claude-code-harness", "properties": {"description": "또 다른 하네스 레포지토리", "confidence": 0.9}, "provisional": false},
-    {"id": "N032", "uri": "https://oscar.ai/harness/instance/Harness/E032", "class": "C301", "label": "BloomLabs Content Harness", "properties": {"description": "콘텐츠 작성 품질 관리용 개인용 하네스", "version": "v0.10.0", "agentCount": 3, "skillCount": 11, "confidence": 0.95}, "provisional": false},
-    {"id": "N033", "uri": "https://oscar.ai/harness/instance/License/E033", "class": "C106", "label": "Apache 2.0", "properties": {"description": "오픈소스 라이선스", "confidence": 0.95}, "provisional": false},
-    {"id": "N034", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E034", "class": "C200", "label": "Pipeline", "properties": {"description": "순차 처리 패턴", "confidence": 0.95}, "provisional": false},
-    {"id": "N035", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E035", "class": "C200", "label": "Fan-out/Fan-in", "properties": {"description": "병렬 분산 후 통합 패턴", "confidence": 0.95}, "provisional": false},
-    {"id": "N036", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E036", "class": "C200", "label": "Expert Pool", "properties": {"description": "전문가 풀 패턴", "confidence": 0.93}, "provisional": false},
-    {"id": "N037", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E037", "class": "C200", "label": "Producer-Reviewer", "properties": {"description": "생산자-검토자 패턴", "confidence": 0.93}, "provisional": false},
-    {"id": "N038", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E038", "class": "C200", "label": "Supervisor", "properties": {"description": "감독자 패턴", "confidence": 0.93}, "provisional": false},
-    {"id": "N039", "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E039", "class": "C200", "label": "Hierarchical Delegation", "properties": {"description": "계층적 위임 패턴", "confidence": 0.93}, "provisional": false},
-    {"id": "N040", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E040", "class": "C402", "label": "도메인분석", "properties": {"stepOrder": 1, "confidence": 0.9}, "provisional": false},
-    {"id": "N041", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E041", "class": "C402", "label": "팀아키텍처설계", "properties": {"stepOrder": 2, "confidence": 0.9}, "provisional": false},
-    {"id": "N042", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E042", "class": "C402", "label": "에이전트정의생성", "properties": {"stepOrder": 3, "confidence": 0.9}, "provisional": false},
-    {"id": "N043", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E043", "class": "C402", "label": "스킬생성", "properties": {"stepOrder": 4, "confidence": 0.9}, "provisional": false},
-    {"id": "N044", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E044", "class": "C402", "label": "통합&오케스트레이션", "properties": {"stepOrder": 5, "confidence": 0.9}, "provisional": false},
-    {"id": "N045", "uri": "https://oscar.ai/harness/instance/WorkflowStep/E045", "class": "C402", "label": "검증&테스트", "properties": {"stepOrder": 6, "confidence": 0.9}, "provisional": false},
-    {"id": "N046", "uri": "https://oscar.ai/harness/instance/AIAgent/E046", "class": "C005", "label": "researcher", "properties": {"description": "BloomLabs 고정 에이전트", "confidence": 0.9}, "provisional": false},
-    {"id": "N047", "uri": "https://oscar.ai/harness/instance/AIAgent/E047", "class": "C005", "label": "writer", "properties": {"description": "BloomLabs 고정 에이전트", "confidence": 0.9}, "provisional": false},
-    {"id": "N048", "uri": "https://oscar.ai/harness/instance/AIAgent/E048", "class": "C005", "label": "evaluator", "properties": {"description": "BloomLabs 고정 에이전트", "confidence": 0.9}, "provisional": false},
-    {"id": "N049", "uri": "https://oscar.ai/harness/instance/Workflow/E049", "class": "C401", "label": "7 State 워크플로우", "properties": {"description": "idle→recording 등 7개 상태", "confidence": 0.88}, "provisional": false},
-    {"id": "N050", "uri": "https://oscar.ai/harness/instance/EvaluationSystem/E050", "class": "C501", "label": "5축 100점 평가", "properties": {"description": "BloomLabs 콘텐츠 평가 체계", "confidence": 0.9}, "provisional": false},
-    {"id": "N051", "uri": "https://oscar.ai/harness/instance/EvaluationSystem/E051", "class": "C501", "label": "디자인 3축 100점", "properties": {"description": "BloomLabs 디자인 평가 체계", "confidence": 0.88}, "provisional": false},
-    {"id": "N052", "uri": "https://oscar.ai/harness/instance/Concept/E052", "class": "C100", "label": "RPG 게이미피케이션", "properties": {"description": "레벨/업적/XP 시스템", "confidence": 0.88}, "provisional": false},
-    {"id": "N053", "uri": "https://oscar.ai/harness/instance/Mechanism/E053", "class": "C104", "label": "이벤트 소싱", "properties": {"description": "BloomLabs 로그 방식", "confidence": 0.88}, "provisional": false},
-    {"id": "N054", "uri": "https://oscar.ai/harness/instance/Mechanism/E054", "class": "C104", "label": "스냅샷 압축", "properties": {"description": "BloomLabs 로그 보조 방식", "confidence": 0.85}, "provisional": false},
-    {"id": "N055", "uri": "https://oscar.ai/harness/instance/PublicationChannel/E055", "class": "C307", "label": "Memorizer", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N056", "uri": "https://oscar.ai/harness/instance/PublicationChannel/E056", "class": "C307", "label": "Confluence", "properties": {"description": "Atlassian 협업 위키", "confidence": 0.92}, "provisional": false},
-    {"id": "N057", "uri": "https://oscar.ai/harness/instance/PublicationChannel/E057", "class": "C307", "label": "Webnori Wiki", "properties": {"confidence": 0.88}, "provisional": false},
-    {"id": "N058", "uri": "https://oscar.ai/harness/instance/PublicationChannel/E058", "class": "C307", "label": "private-doc", "properties": {"confidence": 0.8}, "provisional": false},
-    {"id": "N059", "uri": "https://oscar.ai/harness/instance/PublicationChannel/E059", "class": "C307", "label": "Pencil Design", "properties": {"description": "디자인 매체", "confidence": 0.85}, "provisional": false},
-    {"id": "N060", "uri": "https://oscar.ai/harness/instance/Experiment/E060", "class": "C404", "label": "A/B 실험", "properties": {"description": "민호 하네스 효과 검증", "confidence": 0.92}, "provisional": false},
-    {"id": "N061", "uri": "https://oscar.ai/harness/instance/QualityMetric/E061", "class": "C502", "label": "품질 점수", "properties": {"beforeValue": "49.5", "afterValue": "79.3", "improvement": "+60%", "confidence": 0.9}, "provisional": false},
-    {"id": "N062", "uri": "https://oscar.ai/harness/instance/QualityMetric/E062", "class": "C502", "label": "승률", "properties": {"beforeValue": "0%", "afterValue": "100%", "improvement": "15전 15승", "confidence": 0.9}, "provisional": false},
-    {"id": "N063", "uri": "https://oscar.ai/harness/instance/QualityMetric/E063", "class": "C502", "label": "출력 분산", "properties": {"improvement": "-32%", "confidence": 0.88}, "provisional": false},
-    {"id": "N064", "uri": "https://oscar.ai/harness/instance/Role/E064", "class": "C105", "label": "개발자", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N065", "uri": "https://oscar.ai/harness/instance/Role/E065", "class": "C105", "label": "PM/기획자", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N066", "uri": "https://oscar.ai/harness/instance/Role/E066", "class": "C105", "label": "콘텐츠 제작자", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N067", "uri": "https://oscar.ai/harness/instance/Role/E067", "class": "C105", "label": "QA 엔지니어", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N068", "uri": "https://oscar.ai/harness/instance/Role/E068", "class": "C105", "label": "데이터 분석가", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N069", "uri": "https://oscar.ai/harness/instance/Role/E069", "class": "C105", "label": "교육자", "properties": {"confidence": 0.85}, "provisional": false},
-    {"id": "N070", "uri": "https://oscar.ai/harness/instance/Strategy/E070", "class": "C103", "label": "AI Native 전략", "properties": {"description": "AI를 기본 전제로 하는 조직/제품 전략", "confidence": 0.88}, "provisional": false}
+    {
+      "id": "node_001",
+      "uri": "https://oscar.ai/harness/instance/Person/E001",
+      "class": "C002",
+      "class_label": "Person",
+      "label": "황민호",
+      "entity_id": "E001",
+      "confidence": 0.98,
+      "properties": {
+        "github_id": "revfactory",
+        "role": "카카오 AI Native 전략 팀 리더",
+        "description": "카카오 AI Native 전략 팀 리더, revfactory/harness 제작자, GitHub ID: revfactory",
+        "entity_type_raw": "Person"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_002",
+      "uri": "https://oscar.ai/harness/instance/Organization/E002",
+      "class": "C003",
+      "class_label": "Organization",
+      "label": "카카오",
+      "entity_id": "E002",
+      "confidence": 0.98,
+      "properties": {
+        "description": "황민호가 소속된 기업, AI Native 전략 팀 보유",
+        "entity_type_raw": "Organization"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_003",
+      "uri": "https://oscar.ai/harness/instance/Team/E003",
+      "class": "C004",
+      "class_label": "Team",
+      "label": "카카오 AI Native 전략 팀",
+      "entity_id": "E003",
+      "confidence": 0.95,
+      "properties": {
+        "description": "카카오 내 AI Native 전략 담당 조직",
+        "entity_type_raw": "Organization"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_004",
+      "uri": "https://oscar.ai/harness/instance/Person/E004",
+      "class": "C002",
+      "class_label": "Person",
+      "label": "PSMON",
+      "entity_id": "E004",
+      "confidence": 0.9,
+      "properties": {
+        "description": "본 문서의 작성자",
+        "entity_type_raw": "Person"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_005",
+      "uri": "https://oscar.ai/harness/instance/Person/E005",
+      "class": "C002",
+      "class_label": "Person",
+      "label": "메이커 에반",
+      "entity_id": "E005",
+      "confidence": 0.9,
+      "properties": {
+        "description": "유튜버, '클로드 코드는 치매에 걸린 아인슈타인이다' 발언자",
+        "entity_type_raw": "Person"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_006",
+      "uri": "https://oscar.ai/harness/instance/Person/E006",
+      "class": "C002",
+      "class_label": "Person",
+      "label": "오후다섯씨",
+      "entity_id": "E006",
+      "confidence": 0.85,
+      "properties": {
+        "description": "참고 자료에 언급된 인물/채널",
+        "entity_type_raw": "Person"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_007",
+      "uri": "https://oscar.ai/harness/instance/Organization/E007",
+      "class": "C003",
+      "class_label": "Organization",
+      "label": "BloomLabs",
+      "entity_id": "E007",
+      "confidence": 0.85,
+      "properties": {
+        "description": "Content Harness 운영 조직",
+        "entity_type_raw": "Organization"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_008",
+      "uri": "https://oscar.ai/harness/instance/Concept/E008",
+      "class": "C100",
+      "class_label": "Concept",
+      "label": "하네스",
+      "entity_id": "E008",
+      "confidence": 0.99,
+      "properties": {
+        "description": "AI 에이전트의 행동을 구조화하는 사전 설정 체계, 말의 마구(馬具)에서 유래",
+        "entity_type_raw": "Concept",
+        "etymology": "마구(馬具)"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_009",
+      "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E009",
+      "class": "C101",
+      "class_label": "EngineeringParadigm",
+      "label": "하네스 엔지니어링",
+      "entity_id": "E009",
+      "confidence": 0.98,
+      "properties": {
+        "year": "2026",
+        "description": "2026년의 핵심 AI 엔지니어링 역량",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_010",
+      "uri": "https://oscar.ai/harness/instance/Skill/E010",
+      "class": "C303",
+      "class_label": "Skill",
+      "label": "스킬",
+      "entity_id": "E010",
+      "confidence": 0.97,
+      "properties": {
+        "description": ".claude/skills/에 정의되는 재사용 가능한 절차적 지식",
+        "entity_type_raw": "Concept",
+        "definitionPath": ".claude/skills/"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_011",
+      "uri": "https://oscar.ai/harness/instance/AIAgent/E011",
+      "class": "C005",
+      "class_label": "AIAgent",
+      "label": "에이전트",
+      "entity_id": "E011",
+      "confidence": 0.97,
+      "properties": {
+        "description": ".claude/agents/에 정의되는 전문가 페르소나",
+        "entity_type_raw": "Concept",
+        "definitionPath": ".claude/agents/"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_012",
+      "uri": "https://oscar.ai/harness/instance/MetaSkill/E012",
+      "class": "C304",
+      "class_label": "MetaSkill",
+      "label": "메타 스킬",
+      "entity_id": "E012",
+      "confidence": 0.95,
+      "properties": {
+        "description": "스킬을 만드는 스킬",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_013",
+      "uri": "https://oscar.ai/harness/instance/Mechanism/E013",
+      "class": "C104",
+      "class_label": "Mechanism",
+      "label": "컴팩션",
+      "entity_id": "E013",
+      "confidence": 0.93,
+      "properties": {
+        "description": "컨텍스트가 쌓이면 발동되는 압축 메커니즘",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_014",
+      "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E014",
+      "class": "C102",
+      "class_label": "DesignPrinciple",
+      "label": "Progressive Disclosure",
+      "entity_id": "E014",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호의 하네스 핵심 철학 중 하나, 점진적 정보 공개",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_015",
+      "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E015",
+      "class": "C102",
+      "class_label": "DesignPrinciple",
+      "label": "Why-First 문서화",
+      "entity_id": "E015",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호의 하네스 핵심 철학, 이유부터 설명하는 문서화",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_016",
+      "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E016",
+      "class": "C102",
+      "class_label": "DesignPrinciple",
+      "label": "경계 검증",
+      "entity_id": "E016",
+      "confidence": 0.88,
+      "properties": {
+        "description": "민호의 하네스 핵심 철학, boundary validation",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_017",
+      "uri": "https://oscar.ai/harness/instance/DesignPrinciple/E017",
+      "class": "C102",
+      "class_label": "DesignPrinciple",
+      "label": "구조화된 사전 설정",
+      "entity_id": "E017",
+      "confidence": 0.88,
+      "properties": {
+        "description": "민호의 하네스 핵심 철학",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_018",
+      "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E018",
+      "class": "C101",
+      "class_label": "EngineeringParadigm",
+      "label": "프롬프트 엔지니어링",
+      "entity_id": "E018",
+      "confidence": 0.95,
+      "properties": {
+        "year": "2024",
+        "description": "2024년의 AI 엔지니어링 패러다임",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_019",
+      "uri": "https://oscar.ai/harness/instance/EngineeringParadigm/E019",
+      "class": "C101",
+      "class_label": "EngineeringParadigm",
+      "label": "컨텍스트 엔지니어링",
+      "entity_id": "E019",
+      "confidence": 0.95,
+      "properties": {
+        "year": "2025",
+        "description": "2025년의 AI 엔지니어링 패러다임",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_020",
+      "uri": "https://oscar.ai/harness/instance/Technology/E020",
+      "class": "C302",
+      "class_label": "Technology",
+      "label": "Claude Code",
+      "entity_id": "E020",
+      "confidence": 0.98,
+      "properties": {
+        "description": "Anthropic의 공식 코딩 CLI",
+        "entity_type_raw": "Technology"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_021",
+      "uri": "https://oscar.ai/harness/instance/Technology/E021",
+      "class": "C302",
+      "class_label": "Technology",
+      "label": "Claude Code Agent Teams",
+      "entity_id": "E021",
+      "confidence": 0.97,
+      "properties": {
+        "min_version": "Claude Code v2.1.32",
+        "status": "experimental",
+        "communication": "팀원 간",
+        "coordination": "공유 Task List",
+        "token_cost": "높음",
+        "description": "Claude Code v2.1.32부터 도입된 실험적 다중 에이전트 협업 기능",
+        "entity_type_raw": "Technology",
+        "minVersion": "Claude Code v2.1.32"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_022",
+      "uri": "https://oscar.ai/harness/instance/TeamLead/E022",
+      "class": "C006",
+      "class_label": "TeamLead",
+      "label": "Team Lead",
+      "entity_id": "E022",
+      "confidence": 0.92,
+      "properties": {
+        "description": "Agent Teams의 메인 세션, 팀 생성/작업 할당/결과 종합 담당",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_023",
+      "uri": "https://oscar.ai/harness/instance/Teammate/E023",
+      "class": "C007",
+      "class_label": "Teammate",
+      "label": "Teammates",
+      "entity_id": "E023",
+      "confidence": 0.92,
+      "properties": {
+        "description": "독립 Claude Code 인스턴스, 자체 컨텍스트 윈도우에서 작동",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_024",
+      "uri": "https://oscar.ai/harness/instance/CommunicationChannel/E024",
+      "class": "C308",
+      "class_label": "CommunicationChannel",
+      "label": "Shared Task List",
+      "entity_id": "E024",
+      "confidence": 0.9,
+      "properties": {
+        "description": "팀원들이 claim하고 완료하는 공유 작업 목록",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_025",
+      "uri": "https://oscar.ai/harness/instance/CommunicationChannel/E025",
+      "class": "C308",
+      "class_label": "CommunicationChannel",
+      "label": "Mailbox",
+      "entity_id": "E025",
+      "confidence": 0.9,
+      "properties": {
+        "description": "에이전트 간 직접 메시징 시스템",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_026",
+      "uri": "https://oscar.ai/harness/instance/Subagent/E026",
+      "class": "C008",
+      "class_label": "Subagent",
+      "label": "Subagent",
+      "entity_id": "E026",
+      "confidence": 0.88,
+      "properties": {
+        "communication": "메인에게만",
+        "coordination": "메인 관리",
+        "token_cost": "낮음",
+        "description": "메인 에이전트에게만 통신하는 서브 에이전트, 토큰비용 낮음",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_027",
+      "uri": "https://oscar.ai/harness/instance/ConfigurationFile/E027",
+      "class": "C305",
+      "class_label": "ConfigurationFile",
+      "label": "settings.json",
+      "entity_id": "E027",
+      "confidence": 0.9,
+      "properties": {
+        "description": "Claude Code 설정 파일",
+        "entity_type_raw": "Technology"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_028",
+      "uri": "https://oscar.ai/harness/instance/EnvironmentVariable/E028",
+      "class": "C306",
+      "class_label": "EnvironmentVariable",
+      "label": "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS",
+      "entity_id": "E028",
+      "confidence": 0.92,
+      "properties": {
+        "value": "1",
+        "type": "environment_variable",
+        "description": "Agent Teams 활성화 환경 변수, 값=1",
+        "entity_type_raw": "Technology"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_029",
+      "uri": "https://oscar.ai/harness/instance/Harness/E029",
+      "class": "C301",
+      "class_label": "Harness",
+      "label": "revfactory/harness",
+      "entity_id": "E029",
+      "confidence": 0.97,
+      "properties": {
+        "version": "v1.0.1",
+        "release_date": "2026-03-28",
+        "license": "Apache 2.0",
+        "workflow_steps": "6",
+        "architecture_patterns": "6",
+        "description": "황민호가 만든 오픈소스 하네스, v1.0.1, 2026-03-28, Apache 2.0",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_030",
+      "uri": "https://oscar.ai/harness/instance/Harness/E030",
+      "class": "C301",
+      "class_label": "Harness",
+      "label": "revfactory/harness-100",
+      "entity_id": "E030",
+      "confidence": 0.95,
+      "properties": {
+        "domain_count": "10",
+        "production_packages": "200",
+        "markdown_files": "1808",
+        "description": "10개 도메인, 200개 프로덕션 패키지, 1808개 마크다운 파일",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_031",
+      "uri": "https://oscar.ai/harness/instance/Harness/E031",
+      "class": "C301",
+      "class_label": "Harness",
+      "label": "revfactory/claude-code-harness",
+      "entity_id": "E031",
+      "confidence": 0.9,
+      "properties": {
+        "description": "참고 자료에 언급된 또 다른 하네스 레포지토리",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_032",
+      "uri": "https://oscar.ai/harness/instance/Harness/E032",
+      "class": "C301",
+      "class_label": "Harness",
+      "label": "BloomLabs Content Harness",
+      "entity_id": "E032",
+      "confidence": 0.95,
+      "properties": {
+        "version": "v0.10.0",
+        "agent_count": "3",
+        "skill_count": "11",
+        "state_count": "7",
+        "publish_channel_count": "5",
+        "evaluation_axes": "5축 100점 + 디자인 3축 100점",
+        "description": "콘텐츠 작성 품질 관리용 개인용 하네스, v0.10.0",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_033",
+      "uri": "https://oscar.ai/harness/instance/License/E033",
+      "class": "C106",
+      "class_label": "License",
+      "label": "Apache 2.0",
+      "entity_id": "E033",
+      "confidence": 0.95,
+      "properties": {
+        "description": "오픈소스 라이선스",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_034",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E034",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Pipeline",
+      "entity_id": "E034",
+      "confidence": 0.95,
+      "properties": {
+        "description": "순차 처리 아키텍처 패턴",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_035",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E035",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Fan-out/Fan-in",
+      "entity_id": "E035",
+      "confidence": 0.95,
+      "properties": {
+        "description": "병렬 분산 후 통합 패턴",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_036",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E036",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Expert Pool",
+      "entity_id": "E036",
+      "confidence": 0.93,
+      "properties": {
+        "description": "전문가 풀 패턴",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_037",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E037",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Producer-Reviewer",
+      "entity_id": "E037",
+      "confidence": 0.93,
+      "properties": {
+        "description": "생산자-검토자 패턴, BloomLabs Content Harness가 사용",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_038",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E038",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Supervisor",
+      "entity_id": "E038",
+      "confidence": 0.93,
+      "properties": {
+        "description": "감독자 패턴",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_039",
+      "uri": "https://oscar.ai/harness/instance/ArchitecturePattern/E039",
+      "class": "C200",
+      "class_label": "ArchitecturePattern",
+      "label": "Hierarchical Delegation",
+      "entity_id": "E039",
+      "confidence": 0.93,
+      "properties": {
+        "description": "계층적 위임 패턴",
+        "entity_type_raw": "Pattern"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_040",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E040",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "도메인분석",
+      "entity_id": "E040",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 1단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_041",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E041",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "팀아키텍처설계",
+      "entity_id": "E041",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 2단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_042",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E042",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "에이전트정의생성",
+      "entity_id": "E042",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 3단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_043",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E043",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "스킬생성",
+      "entity_id": "E043",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 4단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_044",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E044",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "통합&오케스트레이션",
+      "entity_id": "E044",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 5단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_045",
+      "uri": "https://oscar.ai/harness/instance/WorkflowStep/E045",
+      "class": "C402",
+      "class_label": "WorkflowStep",
+      "label": "검증&테스트",
+      "entity_id": "E045",
+      "confidence": 0.9,
+      "properties": {
+        "description": "민호 하네스 6단계 워크플로우 6단계",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_046",
+      "uri": "https://oscar.ai/harness/instance/AIAgent/E046",
+      "class": "C005",
+      "class_label": "AIAgent",
+      "label": "researcher",
+      "entity_id": "E046",
+      "confidence": 0.9,
+      "properties": {
+        "description": "BloomLabs 하네스의 고정 에이전트",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_047",
+      "uri": "https://oscar.ai/harness/instance/AIAgent/E047",
+      "class": "C005",
+      "class_label": "AIAgent",
+      "label": "writer",
+      "entity_id": "E047",
+      "confidence": 0.9,
+      "properties": {
+        "description": "BloomLabs 하네스의 고정 에이전트",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_048",
+      "uri": "https://oscar.ai/harness/instance/AIAgent/E048",
+      "class": "C005",
+      "class_label": "AIAgent",
+      "label": "evaluator",
+      "entity_id": "E048",
+      "confidence": 0.9,
+      "properties": {
+        "description": "BloomLabs 하네스의 고정 에이전트",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_049",
+      "uri": "https://oscar.ai/harness/instance/Workflow/E049",
+      "class": "C401",
+      "class_label": "Workflow",
+      "label": "7 State 워크플로우",
+      "entity_id": "E049",
+      "confidence": 0.88,
+      "properties": {
+        "states": "idle→recording (7개)",
+        "description": "BloomLabs 하네스 워크플로우, idle→recording 등 7개 상태",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_050",
+      "uri": "https://oscar.ai/harness/instance/EvaluationSystem/E050",
+      "class": "C501",
+      "class_label": "EvaluationSystem",
+      "label": "5축 100점 평가",
+      "entity_id": "E050",
+      "confidence": 0.9,
+      "properties": {
+        "description": "BloomLabs Content Harness의 콘텐츠 평가 체계",
+        "entity_type_raw": "Metric"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_051",
+      "uri": "https://oscar.ai/harness/instance/EvaluationSystem/E051",
+      "class": "C501",
+      "class_label": "EvaluationSystem",
+      "label": "디자인 3축 100점",
+      "entity_id": "E051",
+      "confidence": 0.88,
+      "properties": {
+        "description": "BloomLabs Content Harness의 디자인 평가 체계",
+        "entity_type_raw": "Metric"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_052",
+      "uri": "https://oscar.ai/harness/instance/Concept/E052",
+      "class": "C100",
+      "class_label": "Concept",
+      "label": "RPG 게이미피케이션",
+      "entity_id": "E052",
+      "confidence": 0.88,
+      "properties": {
+        "components": "레벨/업적/XP",
+        "description": "레벨/업적/XP 시스템",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_053",
+      "uri": "https://oscar.ai/harness/instance/Mechanism/E053",
+      "class": "C104",
+      "class_label": "Mechanism",
+      "label": "이벤트 소싱",
+      "entity_id": "E053",
+      "confidence": 0.88,
+      "properties": {
+        "description": "BloomLabs 하네스의 로그 방식",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_054",
+      "uri": "https://oscar.ai/harness/instance/Mechanism/E054",
+      "class": "C104",
+      "class_label": "Mechanism",
+      "label": "스냅샷 압축",
+      "entity_id": "E054",
+      "confidence": 0.85,
+      "properties": {
+        "description": "BloomLabs 하네스의 로그 보조 방식",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_055",
+      "uri": "https://oscar.ai/harness/instance/PublicationChannel/E055",
+      "class": "C307",
+      "class_label": "PublicationChannel",
+      "label": "Memorizer",
+      "entity_id": "E055",
+      "confidence": 0.85,
+      "properties": {
+        "description": "BloomLabs 발행 매체 중 하나",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_056",
+      "uri": "https://oscar.ai/harness/instance/PublicationChannel/E056",
+      "class": "C307",
+      "class_label": "PublicationChannel",
+      "label": "Confluence",
+      "entity_id": "E056",
+      "confidence": 0.92,
+      "properties": {
+        "description": "Atlassian 협업 위키, BloomLabs 발행 매체",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_057",
+      "uri": "https://oscar.ai/harness/instance/PublicationChannel/E057",
+      "class": "C307",
+      "class_label": "PublicationChannel",
+      "label": "Webnori Wiki",
+      "entity_id": "E057",
+      "confidence": 0.88,
+      "properties": {
+        "description": "BloomLabs 발행 매체",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_058",
+      "uri": "https://oscar.ai/harness/instance/PublicationChannel/E058",
+      "class": "C307",
+      "class_label": "PublicationChannel",
+      "label": "private-doc",
+      "entity_id": "E058",
+      "confidence": 0.8,
+      "properties": {
+        "description": "BloomLabs 발행 매체, 사적 문서",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_059",
+      "uri": "https://oscar.ai/harness/instance/PublicationChannel/E059",
+      "class": "C307",
+      "class_label": "PublicationChannel",
+      "label": "Pencil Design",
+      "entity_id": "E059",
+      "confidence": 0.85,
+      "properties": {
+        "description": "BloomLabs 발행 매체, 디자인 매체",
+        "entity_type_raw": "Product"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_060",
+      "uri": "https://oscar.ai/harness/instance/Experiment/E060",
+      "class": "C404",
+      "class_label": "Experiment",
+      "label": "A/B 실험",
+      "entity_id": "E060",
+      "confidence": 0.92,
+      "properties": {
+        "description": "민호 하네스 효과 검증 실험",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_061",
+      "uri": "https://oscar.ai/harness/instance/QualityMetric/E061",
+      "class": "C502",
+      "class_label": "QualityMetric",
+      "label": "품질 점수",
+      "entity_id": "E061",
+      "confidence": 0.9,
+      "properties": {
+        "before": "49.5",
+        "after": "79.3",
+        "improvement_pct": "+60%",
+        "description": "A/B 실험 평가 지표 (49.5→79.3)",
+        "entity_type_raw": "Metric"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_062",
+      "uri": "https://oscar.ai/harness/instance/QualityMetric/E062",
+      "class": "C502",
+      "class_label": "QualityMetric",
+      "label": "승률",
+      "entity_id": "E062",
+      "confidence": 0.9,
+      "properties": {
+        "before": "0%",
+        "after": "100%",
+        "record": "15전 15승",
+        "description": "A/B 실험 평가 지표 (0%→100%, 15전 15승)",
+        "entity_type_raw": "Metric"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_063",
+      "uri": "https://oscar.ai/harness/instance/QualityMetric/E063",
+      "class": "C502",
+      "class_label": "QualityMetric",
+      "label": "출력 분산",
+      "entity_id": "E063",
+      "confidence": 0.88,
+      "properties": {
+        "change": "-32%",
+        "description": "A/B 실험 평가 지표 (-32%)",
+        "entity_type_raw": "Metric"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_064",
+      "uri": "https://oscar.ai/harness/instance/Role/E064",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "개발자",
+      "entity_id": "E064",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Fan-out + Expert Pool 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_065",
+      "uri": "https://oscar.ai/harness/instance/Role/E065",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "PM/기획자",
+      "entity_id": "E065",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Supervisor + Pipeline 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_066",
+      "uri": "https://oscar.ai/harness/instance/Role/E066",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "콘텐츠 제작자",
+      "entity_id": "E066",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Producer-Reviewer + Fan-out 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_067",
+      "uri": "https://oscar.ai/harness/instance/Role/E067",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "QA 엔지니어",
+      "entity_id": "E067",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Expert Pool + Pipeline 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_068",
+      "uri": "https://oscar.ai/harness/instance/Role/E068",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "데이터 분석가",
+      "entity_id": "E068",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Fan-out/Fan-in 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_069",
+      "uri": "https://oscar.ai/harness/instance/Role/E069",
+      "class": "C105",
+      "class_label": "Role",
+      "label": "교육자",
+      "entity_id": "E069",
+      "confidence": 0.85,
+      "properties": {
+        "description": "전문가 직무, Hierarchical Delegation 활용",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    },
+    {
+      "id": "node_070",
+      "uri": "https://oscar.ai/harness/instance/Strategy/E070",
+      "class": "C103",
+      "class_label": "Strategy",
+      "label": "AI Native 전략",
+      "entity_id": "E070",
+      "confidence": 0.88,
+      "properties": {
+        "description": "AI를 기본 전제로 하는 조직/제품 전략",
+        "entity_type_raw": "Concept"
+      },
+      "provisional": false
+    }
   ],
   "edges": [
-    {"id": "EG001", "source": "N001", "target": "N002", "relation": "P001", "relation_label": "worksFor", "weight": 0.98},
-    {"id": "EG002", "source": "N001", "target": "N003", "relation": "P002", "relation_label": "leads", "weight": 0.95},
-    {"id": "EG003", "source": "N003", "target": "N002", "relation": "P004", "relation_label": "partOf", "weight": 0.97},
-    {"id": "EG004", "source": "N001", "target": "N029", "relation": "P005", "relation_label": "created", "weight": 0.98},
-    {"id": "EG005", "source": "N001", "target": "N030", "relation": "P005", "relation_label": "created", "weight": 0.9},
-    {"id": "EG006", "source": "N004", "target": "N009", "relation": "P006", "relation_label": "authored", "weight": 0.9},
-    {"id": "EG007", "source": "N005", "target": "N020", "relation": "P009", "relation_label": "quotedAbout", "weight": 0.9},
-    {"id": "EG008", "source": "N007", "target": "N032", "relation": "P007", "relation_label": "operates", "weight": 0.9},
-    {"id": "EG009", "source": "N009", "target": "N020", "relation": "P106", "relation_label": "appliedTo", "weight": 0.9},
-    {"id": "EG010", "source": "N021", "target": "N020", "relation": "P200", "relation_label": "featureOf", "weight": 0.97},
-    {"id": "EG011", "source": "N021", "target": "N022", "relation": "P201", "relation_label": "includes", "weight": 0.95},
-    {"id": "EG012", "source": "N021", "target": "N023", "relation": "P201", "relation_label": "includes", "weight": 0.95},
-    {"id": "EG013", "source": "N021", "target": "N024", "relation": "P202", "relation_label": "uses", "weight": 0.92},
-    {"id": "EG014", "source": "N021", "target": "N025", "relation": "P202", "relation_label": "uses", "weight": 0.92},
-    {"id": "EG015", "source": "N021", "target": "N028", "relation": "P203", "relation_label": "activatedBy", "weight": 0.95},
-    {"id": "EG016", "source": "N028", "target": "N027", "relation": "P204", "relation_label": "configuredIn", "weight": 0.95},
-    {"id": "EG017", "source": "N021", "target": "N026", "relation": "P205", "relation_label": "differsFrom", "weight": 0.9},
-    {"id": "EG018", "source": "N029", "target": "N033", "relation": "P208", "relation_label": "licensedUnder", "weight": 0.97},
-    {"id": "EG019", "source": "N029", "target": "N012", "relation": "P103", "relation_label": "implements", "weight": 0.93},
-    {"id": "EG020", "source": "N029", "target": "N014", "relation": "P100", "relation_label": "follows", "weight": 0.9},
-    {"id": "EG021", "source": "N029", "target": "N015", "relation": "P100", "relation_label": "follows", "weight": 0.9},
-    {"id": "EG022", "source": "N029", "target": "N016", "relation": "P100", "relation_label": "follows", "weight": 0.9},
-    {"id": "EG023", "source": "N029", "target": "N017", "relation": "P100", "relation_label": "follows", "weight": 0.9},
-    {"id": "EG024", "source": "N029", "target": "N034", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG025", "source": "N029", "target": "N035", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG026", "source": "N029", "target": "N036", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG027", "source": "N029", "target": "N037", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG028", "source": "N029", "target": "N038", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG029", "source": "N029", "target": "N039", "relation": "P101", "relation_label": "supportsPattern", "weight": 0.9},
-    {"id": "EG030", "source": "N029", "target": "N040", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG031", "source": "N029", "target": "N041", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG032", "source": "N029", "target": "N042", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG033", "source": "N029", "target": "N043", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG034", "source": "N029", "target": "N044", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG035", "source": "N029", "target": "N045", "relation": "P301", "relation_label": "hasWorkflowStep", "weight": 0.92},
-    {"id": "EG036", "source": "N029", "target": "N060", "relation": "P304", "relation_label": "validatedBy", "weight": 0.9},
-    {"id": "EG037", "source": "N060", "target": "N061", "relation": "P305", "relation_label": "measures", "weight": 0.9},
-    {"id": "EG038", "source": "N060", "target": "N062", "relation": "P305", "relation_label": "measures", "weight": 0.9},
-    {"id": "EG039", "source": "N060", "target": "N063", "relation": "P305", "relation_label": "measures", "weight": 0.88},
-    {"id": "EG040", "source": "N032", "target": "N046", "relation": "P104", "relation_label": "definesAgent", "weight": 0.95},
-    {"id": "EG041", "source": "N032", "target": "N047", "relation": "P104", "relation_label": "definesAgent", "weight": 0.95},
-    {"id": "EG042", "source": "N032", "target": "N048", "relation": "P104", "relation_label": "definesAgent", "weight": 0.95},
-    {"id": "EG043", "source": "N032", "target": "N037", "relation": "P102", "relation_label": "usesPattern", "weight": 0.95},
-    {"id": "EG044", "source": "N032", "target": "N049", "relation": "P300", "relation_label": "hasWorkflow", "weight": 0.92},
-    {"id": "EG045", "source": "N032", "target": "N050", "relation": "P306", "relation_label": "evaluatedBy", "weight": 0.9},
-    {"id": "EG046", "source": "N032", "target": "N051", "relation": "P306", "relation_label": "evaluatedBy", "weight": 0.88},
-    {"id": "EG047", "source": "N032", "target": "N052", "relation": "P202", "relation_label": "uses", "weight": 0.88},
-    {"id": "EG048", "source": "N032", "target": "N053", "relation": "P109", "relation_label": "logsVia", "weight": 0.88},
-    {"id": "EG049", "source": "N032", "target": "N054", "relation": "P109", "relation_label": "logsVia", "weight": 0.85},
-    {"id": "EG050", "source": "N032", "target": "N055", "relation": "P207", "relation_label": "publishesTo", "weight": 0.85},
-    {"id": "EG051", "source": "N032", "target": "N056", "relation": "P207", "relation_label": "publishesTo", "weight": 0.88},
-    {"id": "EG052", "source": "N032", "target": "N057", "relation": "P207", "relation_label": "publishesTo", "weight": 0.85},
-    {"id": "EG053", "source": "N032", "target": "N058", "relation": "P207", "relation_label": "publishesTo", "weight": 0.8},
-    {"id": "EG054", "source": "N032", "target": "N059", "relation": "P207", "relation_label": "publishesTo", "weight": 0.85},
-    {"id": "EG055", "source": "N018", "target": "N019", "relation": "P107", "relation_label": "evolvesInto", "weight": 0.9},
-    {"id": "EG056", "source": "N019", "target": "N009", "relation": "P107", "relation_label": "evolvesInto", "weight": 0.92},
-    {"id": "EG057", "source": "N064", "target": "N035", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG058", "source": "N064", "target": "N036", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG059", "source": "N065", "target": "N038", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG060", "source": "N065", "target": "N034", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG061", "source": "N066", "target": "N037", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG062", "source": "N066", "target": "N035", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG063", "source": "N067", "target": "N036", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG064", "source": "N067", "target": "N034", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG065", "source": "N068", "target": "N035", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG066", "source": "N069", "target": "N039", "relation": "P400", "relation_label": "rolePerforms", "weight": 0.85},
-    {"id": "EG067", "source": "N003", "target": "N070", "relation": "P008", "relation_label": "drives", "weight": 0.85},
-    {"id": "EG068", "source": "N020", "target": "N013", "relation": "P108", "relation_label": "hasMechanism", "weight": 0.9}
+    {
+      "id": "edge_001",
+      "source": "node_001",
+      "target": "node_002",
+      "source_entity": "E001",
+      "target_entity": "E002",
+      "relation": "P001",
+      "relation_label": "worksFor",
+      "weight": 0.98,
+      "provisional": false
+    },
+    {
+      "id": "edge_002",
+      "source": "node_001",
+      "target": "node_003",
+      "source_entity": "E001",
+      "target_entity": "E003",
+      "relation": "P002",
+      "relation_label": "leads",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_003",
+      "source": "node_003",
+      "target": "node_002",
+      "source_entity": "E003",
+      "target_entity": "E002",
+      "relation": "P004",
+      "relation_label": "partOf",
+      "weight": 0.97,
+      "provisional": false
+    },
+    {
+      "id": "edge_004",
+      "source": "node_001",
+      "target": "node_029",
+      "source_entity": "E001",
+      "target_entity": "E029",
+      "relation": "P005",
+      "relation_label": "created",
+      "weight": 0.98,
+      "provisional": false
+    },
+    {
+      "id": "edge_005",
+      "source": "node_001",
+      "target": "node_030",
+      "source_entity": "E001",
+      "target_entity": "E030",
+      "relation": "P005",
+      "relation_label": "created",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_006",
+      "source": "node_004",
+      "target": "node_009",
+      "source_entity": "E004",
+      "target_entity": "E009",
+      "relation": "P006",
+      "relation_label": "authored",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_007",
+      "source": "node_005",
+      "target": "node_020",
+      "source_entity": "E005",
+      "target_entity": "E020",
+      "relation": "P009",
+      "relation_label": "quotedAbout",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_008",
+      "source": "node_007",
+      "target": "node_032",
+      "source_entity": "E007",
+      "target_entity": "E032",
+      "relation": "P007",
+      "relation_label": "operates",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_009",
+      "source": "node_009",
+      "target": "node_020",
+      "source_entity": "E009",
+      "target_entity": "E020",
+      "relation": "P106",
+      "relation_label": "appliedTo",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_010",
+      "source": "node_021",
+      "target": "node_020",
+      "source_entity": "E021",
+      "target_entity": "E020",
+      "relation": "P200",
+      "relation_label": "featureOf",
+      "weight": 0.97,
+      "provisional": false
+    },
+    {
+      "id": "edge_011",
+      "source": "node_021",
+      "target": "node_022",
+      "source_entity": "E021",
+      "target_entity": "E022",
+      "relation": "P201",
+      "relation_label": "includes",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_012",
+      "source": "node_021",
+      "target": "node_023",
+      "source_entity": "E021",
+      "target_entity": "E023",
+      "relation": "P201",
+      "relation_label": "includes",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_013",
+      "source": "node_021",
+      "target": "node_024",
+      "source_entity": "E021",
+      "target_entity": "E024",
+      "relation": "P202",
+      "relation_label": "uses",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_014",
+      "source": "node_021",
+      "target": "node_025",
+      "source_entity": "E021",
+      "target_entity": "E025",
+      "relation": "P202",
+      "relation_label": "uses",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_015",
+      "source": "node_021",
+      "target": "node_028",
+      "source_entity": "E021",
+      "target_entity": "E028",
+      "relation": "P203",
+      "relation_label": "activatedBy",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_016",
+      "source": "node_028",
+      "target": "node_027",
+      "source_entity": "E028",
+      "target_entity": "E027",
+      "relation": "P204",
+      "relation_label": "configuredIn",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_017",
+      "source": "node_021",
+      "target": "node_026",
+      "source_entity": "E021",
+      "target_entity": "E026",
+      "relation": "P205",
+      "relation_label": "differsFrom",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_018",
+      "source": "node_029",
+      "target": "node_033",
+      "source_entity": "E029",
+      "target_entity": "E033",
+      "relation": "P208",
+      "relation_label": "licensedUnder",
+      "weight": 0.97,
+      "provisional": false
+    },
+    {
+      "id": "edge_019",
+      "source": "node_029",
+      "target": "node_012",
+      "source_entity": "E029",
+      "target_entity": "E012",
+      "relation": "P103",
+      "relation_label": "implements",
+      "weight": 0.93,
+      "provisional": false
+    },
+    {
+      "id": "edge_020",
+      "source": "node_029",
+      "target": "node_014",
+      "source_entity": "E029",
+      "target_entity": "E014",
+      "relation": "P100",
+      "relation_label": "follows",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_021",
+      "source": "node_029",
+      "target": "node_015",
+      "source_entity": "E029",
+      "target_entity": "E015",
+      "relation": "P100",
+      "relation_label": "follows",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_022",
+      "source": "node_029",
+      "target": "node_016",
+      "source_entity": "E029",
+      "target_entity": "E016",
+      "relation": "P100",
+      "relation_label": "follows",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_023",
+      "source": "node_029",
+      "target": "node_017",
+      "source_entity": "E029",
+      "target_entity": "E017",
+      "relation": "P100",
+      "relation_label": "follows",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_024",
+      "source": "node_029",
+      "target": "node_034",
+      "source_entity": "E029",
+      "target_entity": "E034",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_025",
+      "source": "node_029",
+      "target": "node_035",
+      "source_entity": "E029",
+      "target_entity": "E035",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_026",
+      "source": "node_029",
+      "target": "node_036",
+      "source_entity": "E029",
+      "target_entity": "E036",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_027",
+      "source": "node_029",
+      "target": "node_037",
+      "source_entity": "E029",
+      "target_entity": "E037",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_028",
+      "source": "node_029",
+      "target": "node_038",
+      "source_entity": "E029",
+      "target_entity": "E038",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_029",
+      "source": "node_029",
+      "target": "node_039",
+      "source_entity": "E029",
+      "target_entity": "E039",
+      "relation": "P101",
+      "relation_label": "supportsPattern",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_030",
+      "source": "node_029",
+      "target": "node_040",
+      "source_entity": "E029",
+      "target_entity": "E040",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_031",
+      "source": "node_029",
+      "target": "node_041",
+      "source_entity": "E029",
+      "target_entity": "E041",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_032",
+      "source": "node_029",
+      "target": "node_042",
+      "source_entity": "E029",
+      "target_entity": "E042",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_033",
+      "source": "node_029",
+      "target": "node_043",
+      "source_entity": "E029",
+      "target_entity": "E043",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_034",
+      "source": "node_029",
+      "target": "node_044",
+      "source_entity": "E029",
+      "target_entity": "E044",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_035",
+      "source": "node_029",
+      "target": "node_045",
+      "source_entity": "E029",
+      "target_entity": "E045",
+      "relation": "P301",
+      "relation_label": "hasWorkflowStep",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_036",
+      "source": "node_029",
+      "target": "node_060",
+      "source_entity": "E029",
+      "target_entity": "E060",
+      "relation": "P304",
+      "relation_label": "validatedBy",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_037",
+      "source": "node_060",
+      "target": "node_061",
+      "source_entity": "E060",
+      "target_entity": "E061",
+      "relation": "P305",
+      "relation_label": "measures",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_038",
+      "source": "node_060",
+      "target": "node_062",
+      "source_entity": "E060",
+      "target_entity": "E062",
+      "relation": "P305",
+      "relation_label": "measures",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_039",
+      "source": "node_060",
+      "target": "node_063",
+      "source_entity": "E060",
+      "target_entity": "E063",
+      "relation": "P305",
+      "relation_label": "measures",
+      "weight": 0.88,
+      "provisional": false
+    },
+    {
+      "id": "edge_040",
+      "source": "node_032",
+      "target": "node_046",
+      "source_entity": "E032",
+      "target_entity": "E046",
+      "relation": "P104",
+      "relation_label": "definesAgent",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_041",
+      "source": "node_032",
+      "target": "node_047",
+      "source_entity": "E032",
+      "target_entity": "E047",
+      "relation": "P104",
+      "relation_label": "definesAgent",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_042",
+      "source": "node_032",
+      "target": "node_048",
+      "source_entity": "E032",
+      "target_entity": "E048",
+      "relation": "P104",
+      "relation_label": "definesAgent",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_043",
+      "source": "node_032",
+      "target": "node_037",
+      "source_entity": "E032",
+      "target_entity": "E037",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.95,
+      "provisional": false
+    },
+    {
+      "id": "edge_044",
+      "source": "node_032",
+      "target": "node_049",
+      "source_entity": "E032",
+      "target_entity": "E049",
+      "relation": "P300",
+      "relation_label": "hasWorkflow",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_045",
+      "source": "node_032",
+      "target": "node_050",
+      "source_entity": "E032",
+      "target_entity": "E050",
+      "relation": "P202",
+      "relation_label": "uses",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_046",
+      "source": "node_032",
+      "target": "node_051",
+      "source_entity": "E032",
+      "target_entity": "E051",
+      "relation": "P202",
+      "relation_label": "uses",
+      "weight": 0.88,
+      "provisional": false
+    },
+    {
+      "id": "edge_047",
+      "source": "node_032",
+      "target": "node_052",
+      "source_entity": "E032",
+      "target_entity": "E052",
+      "relation": "P202",
+      "relation_label": "uses",
+      "weight": 0.88,
+      "provisional": false
+    },
+    {
+      "id": "edge_048",
+      "source": "node_032",
+      "target": "node_053",
+      "source_entity": "E032",
+      "target_entity": "E053",
+      "relation": "P109",
+      "relation_label": "logsVia",
+      "weight": 0.88,
+      "provisional": false
+    },
+    {
+      "id": "edge_049",
+      "source": "node_032",
+      "target": "node_054",
+      "source_entity": "E032",
+      "target_entity": "E054",
+      "relation": "P109",
+      "relation_label": "logsVia",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_050",
+      "source": "node_032",
+      "target": "node_055",
+      "source_entity": "E032",
+      "target_entity": "E055",
+      "relation": "P207",
+      "relation_label": "publishesTo",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_051",
+      "source": "node_032",
+      "target": "node_056",
+      "source_entity": "E032",
+      "target_entity": "E056",
+      "relation": "P207",
+      "relation_label": "publishesTo",
+      "weight": 0.88,
+      "provisional": false
+    },
+    {
+      "id": "edge_052",
+      "source": "node_032",
+      "target": "node_057",
+      "source_entity": "E032",
+      "target_entity": "E057",
+      "relation": "P207",
+      "relation_label": "publishesTo",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_053",
+      "source": "node_032",
+      "target": "node_058",
+      "source_entity": "E032",
+      "target_entity": "E058",
+      "relation": "P207",
+      "relation_label": "publishesTo",
+      "weight": 0.8,
+      "provisional": false
+    },
+    {
+      "id": "edge_054",
+      "source": "node_032",
+      "target": "node_059",
+      "source_entity": "E032",
+      "target_entity": "E059",
+      "relation": "P207",
+      "relation_label": "publishesTo",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_055",
+      "source": "node_018",
+      "target": "node_019",
+      "source_entity": "E018",
+      "target_entity": "E019",
+      "relation": "P107",
+      "relation_label": "evolvesInto",
+      "weight": 0.9,
+      "provisional": false
+    },
+    {
+      "id": "edge_056",
+      "source": "node_019",
+      "target": "node_009",
+      "source_entity": "E019",
+      "target_entity": "E009",
+      "relation": "P107",
+      "relation_label": "evolvesInto",
+      "weight": 0.92,
+      "provisional": false
+    },
+    {
+      "id": "edge_057",
+      "source": "node_064",
+      "target": "node_035",
+      "source_entity": "E064",
+      "target_entity": "E035",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_058",
+      "source": "node_064",
+      "target": "node_036",
+      "source_entity": "E064",
+      "target_entity": "E036",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_059",
+      "source": "node_065",
+      "target": "node_038",
+      "source_entity": "E065",
+      "target_entity": "E038",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_060",
+      "source": "node_065",
+      "target": "node_034",
+      "source_entity": "E065",
+      "target_entity": "E034",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_061",
+      "source": "node_066",
+      "target": "node_037",
+      "source_entity": "E066",
+      "target_entity": "E037",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_062",
+      "source": "node_066",
+      "target": "node_035",
+      "source_entity": "E066",
+      "target_entity": "E035",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_063",
+      "source": "node_067",
+      "target": "node_036",
+      "source_entity": "E067",
+      "target_entity": "E036",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_064",
+      "source": "node_067",
+      "target": "node_034",
+      "source_entity": "E067",
+      "target_entity": "E034",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_065",
+      "source": "node_068",
+      "target": "node_035",
+      "source_entity": "E068",
+      "target_entity": "E035",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_066",
+      "source": "node_069",
+      "target": "node_039",
+      "source_entity": "E069",
+      "target_entity": "E039",
+      "relation": "P102",
+      "relation_label": "usesPattern",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_067",
+      "source": "node_003",
+      "target": "node_070",
+      "source_entity": "E003",
+      "target_entity": "E070",
+      "relation": "P008",
+      "relation_label": "drives",
+      "weight": 0.85,
+      "provisional": false
+    },
+    {
+      "id": "edge_068",
+      "source": "node_020",
+      "target": "node_013",
+      "source_entity": "E020",
+      "target_entity": "E013",
+      "relation": "P108",
+      "relation_label": "hasMechanism",
+      "weight": 0.9,
+      "provisional": false
+    }
   ],
   "stats": {
     "node_count": 70,
     "edge_count": 68,
-    "isolated_nodes": 1,
-    "isolated_node_ids": ["N031"],
+    "isolated_nodes": 5,
     "merged_duplicates": 0
   },
   "validation": {
     "schema_violations": [],
     "warnings": [
-      {"code": "ISOLATED_NODE", "node": "N031", "message": "revfactory/claude-code-harness has no relations in source extraction"},
-      {"code": "LITERAL_AS_OBJECT", "original_relation": "R009", "message": "어원 '마구(馬具)'는 P515 etymology 데이터 속성으로 처리됨"},
-      {"code": "LITERAL_AS_OBJECT", "original_relation": "R012", "message": "Claude Code v2.1.32는 P506 minVersion 데이터 속성으로 처리됨"},
-      {"code": "LITERAL_AS_OBJECT", "original_relations": "R069/R070", "message": ".claude/skills/, .claude/agents/ 경로는 P521 definitionPath로 처리됨"},
-      {"code": "CLASS_PROMOTION", "entities": ["E022", "E023", "E026"], "message": "Concept으로 추출되었으나 AIAgent 하위 클래스로 승격 (V003)"},
-      {"code": "REDUNDANT_RELATION", "original_relation": "R071", "message": "MetaSkill subClassOf Skill은 클래스 계층(C304→C303)에서 처리, 인스턴스 엣지로 표현하지 않음"}
+      "R071 subClassOf encoded at class level (C304->C303); skipped at instance level."
+    ],
+    "isolated_node_ids": [
+      "node_006",
+      "node_008",
+      "node_010",
+      "node_011",
+      "node_031"
     ]
   }
 }
